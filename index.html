@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<!-- ═══ SEO ═══ -->
+<title>Talents Radar — Free HR Tools for Recruiters, HRBPs & Founders</title>
+<meta name="description" content="SkillMapper maps 1,394+ skills across 200+ roles with salary benchmarks in INR & USD. TalentXRay generates Boolean X-Ray search strings for LinkedIn, GitHub & more. Free. No signup needed."/>
+<meta name="keywords" content="SkillMapper, TalentXRay, HR tools, salary benchmark India, Boolean search recruiter, skills mapping, job description tool, free HR tools, talent acquisition tools, recruiter tools India"/>
+<meta name="author" content="Talents Radar"/>
+<link rel="canonical" href="https://talentsradar.com"/>
+<meta name="robots" content="index, follow"/>
+
+<!-- Open Graph -->
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://talentsradar.com"/>
+<meta property="og:title" content="Talents Radar — Free HR Tools for Recruiters, HRBPs & Founders"/>
+<meta property="og:description" content="SkillMapper: 1,394 skills, 200+ roles, INR & USD salary benchmarks. TalentXRay: Boolean X-Ray strings for LinkedIn, GitHub, Behance. Free. Used by 265+ HR professionals across India, US, UK & Germany."/>
+<meta property="og:image" content="https://talentsradar.com/og-image.png"/>
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Talents Radar — Free HR Tools"/>
+<meta name="twitter:description" content="SkillMapper + TalentXRay. Free HR tools for recruiters and founders. 1,394 skills mapped. INR & USD salary data."/>
+
+<!-- JSON-LD structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Talents Radar",
+  "url": "https://talentsradar.com",
+  "description": "Free HR tools for recruiters, HRBPs and founders. SkillMapper maps 1,394+ skills with salary benchmarks. TalentXRay generates Boolean search strings.",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://skillmapper-hrfk.netlify.app?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "SkillMapper",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+  "description": "Maps 1,394 skills across 200+ roles and 18 departments with salary benchmarks in INR and USD.",
+  "url": "https://skillmapper-hrfk.netlify.app"
+}
+</script>
+
+<!-- GA4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-59QDBJYDPN"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-59QDBJYDPN');</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+<style>
+/* ═══════════════════════════════════════
+   DESIGN TOKENS
+   Background: warm off-white — NOT black
+   Primary: teal (matches SkillMapper's own brand)
+═══════════════════════════════════════ */
+:root{
+  /* Backgrounds */
+  --bg:        #f7f5f1;
+  --bg2:       #ffffff;
+  --card:      #ffffff;
+  --card2:     #f2f0ec;
+
+  /* Borders */
+  --border:    #e8e4dc;
+  --border2:   #d4cfc4;
+
+  /* Text */
+  --ink:       #1a1814;
+  --ink2:      #3d3a35;
+  --ink3:      #6b6760;
+  --muted:     #9a9690;
+
+  /* Brand */
+  --teal:      #0f766e;
+  --teal2:     #0d655e;
+  --teal-lt:   #f0fdf9;
+  --teal-mid:  #ccf5ee;
+  --amber:     #b45309;
+  --amber-lt:  #fef7ed;
+  --green:     #15803d;
+  --green-lt:  #f0fdf4;
+  --purple:    #6d28d9;
+  --purple-lt: #f5f3ff;
+  --red-lt:    #fef2f2;
+  --red:       #b91c1c;
+
+  /* Type */
+  --serif: 'Fraunces', Georgia, serif;
+  --sans:  'DM Sans', system-ui, sans-serif;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow:    0 2px 8px rgba(0,0,0,0.07), 0 1px 3px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.09), 0 2px 6px rgba(0,0,0,0.06);
+  --ease: cubic-bezier(0.22,1,0.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+/* ═══ NAV ═══ */
+nav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(247,245,241,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  height:60px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;
+}
+.nav-logo{
+  display:flex;align-items:center;gap:9px;
+  text-decoration:none;color:var(--ink);
+  font-weight:600;font-size:0.95rem;letter-spacing:-0.01em;
+}
+.logo-icon{
+  width:28px;height:28px;border-radius:7px;
+  background:var(--teal);
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:#fff;line-height:1;
+}
+.nav-links{
+  display:flex;gap:0.2rem;
+  position:absolute;left:50%;transform:translateX(-50%);
+}
+.nav-a{
+  color:var(--ink3);text-decoration:none;
+  font-size:0.83rem;font-weight:400;
+  padding:0.4rem 0.85rem;border-radius:6px;
+  transition:color .15s,background .15s;
+}
+.nav-a:hover{color:var(--ink);background:rgba(0,0,0,0.04);}
+.nav-right{display:flex;gap:0.6rem;align-items:center;}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;gap:0.4rem;
+  font-family:var(--sans);font-weight:500;font-size:0.83rem;
+  padding:0.5rem 1.1rem;border-radius:7px;
+  text-decoration:none;cursor:pointer;border:none;
+  transition:all .18s var(--ease);letter-spacing:0.01em;
+}
+.btn-ghost{color:var(--ink2);background:transparent;border:1.5px solid var(--border2);}
+.btn-ghost:hover{color:var(--ink);border-color:var(--ink3);background:rgba(0,0,0,0.02);}
+.btn-teal{color:#fff;background:var(--teal);}
+.btn-teal:hover{background:var(--teal2);box-shadow:0 4px 16px rgba(15,118,110,0.25);transform:translateY(-1px);}
+.btn-lg{font-size:0.9rem;padding:0.75rem 1.75rem;border-radius:8px;}
+
+/* ═══ HERO ═══ */
+.hero{
+  padding:5rem 2rem 4rem;
+  text-align:center;
+  background:var(--bg);
+  position:relative;
+  overflow:hidden;
+}
+/* Subtle warm grid texture */
+.hero::before{
+  content:'';
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(var(--border) 1px,transparent 1px),
+    linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:48px 48px;
+  opacity:0.5;
+  pointer-events:none;
+}
+/* Teal radial wash behind headline */
+.hero::after{
+  content:'';
+  position:absolute;
+  top:0;left:50%;transform:translateX(-50%);
+  width:600px;height:400px;
+  background:radial-gradient(ellipse, rgba(15,118,110,0.06) 0%, transparent 70%);
+  pointer-events:none;
+}
+.hero-inner{position:relative;z-index:1;max-width:780px;margin:0 auto;}
+
+.hero-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--teal-lt);
+  border:1px solid var(--teal-mid);
+  border-radius:100px;
+  padding:0.32rem 0.95rem;
+  font-size:0.73rem;color:var(--teal);font-weight:500;
+  letter-spacing:0.05em;text-transform:uppercase;
+  margin-bottom:1.75rem;
+  animation:fadeUp .5s var(--ease) both;
+}
+.badge-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--teal);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(1.5)}}
+
+.hero h1{
+  font-family:var(--serif);
+  font-size:clamp(2.6rem,5.5vw,5rem);
+  font-weight:300;
+  line-height:1.08;
+  letter-spacing:-0.03em;
+  color:var(--ink);
+  margin-bottom:1.25rem;
+  animation:fadeUp .55s var(--ease) .08s both;
+}
+.hero h1 em{
+  font-style:italic;
+  color:var(--teal);
+}
+.hero-sub{
+  font-size:1.05rem;
+  color:var(--ink3);
+  max-width:540px;margin:0 auto 2.5rem;
+  font-weight:300;line-height:1.75;
+  animation:fadeUp .55s var(--ease) .16s both;
+}
+.hero-ctas{
+  display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp .55s var(--ease) .24s both;
+  margin-bottom:3rem;
+}
+.hero-proof{
+  display:flex;align-items:center;justify-content:center;
+  gap:2rem;flex-wrap:wrap;
+  padding-top:2rem;
+  border-top:1px solid var(--border);
+  font-size:0.8rem;color:var(--ink3);
+  animation:fadeUp .55s var(--ease) .32s both;
+}
+.hero-proof strong{color:var(--ink);font-weight:600;}
+.proof-sep{width:3px;height:3px;border-radius:50%;background:var(--border2);}
+
+/* ═══ LAYOUT ═══ */
+.wrap{max-width:1080px;margin:0 auto;padding:0 2rem;}
+section{padding:5rem 0;}
+
+/* Section labels */
+.sec-label{
+  font-size:0.72rem;text-transform:uppercase;letter-spacing:0.12em;
+  color:var(--teal);font-weight:600;margin-bottom:0.75rem;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.sec-label::before{content:'';width:18px;height:1px;background:var(--teal);}
+.sec-h{
+  font-family:var(--serif);
+  font-size:clamp(1.9rem,3.5vw,2.8rem);
+  font-weight:300;letter-spacing:-0.025em;line-height:1.1;
+  margin-bottom:0.85rem;color:var(--ink);
+}
+.sec-h em{font-style:italic;color:var(--teal);}
+.sec-p{font-size:0.9rem;color:var(--ink3);font-weight:300;max-width:480px;line-height:1.8;}
+
+/* ═══ TOOL CARDS ═══ */
+.tools-section{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.tools-intro{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:3rem;align-items:end;margin-bottom:3rem;
+}
+
+/* Each tool = full-width card split left/right */
+.tool-row{
+  display:grid;grid-template-columns:1fr 1fr;
+  border:1.5px solid var(--border);
+  border-radius:18px;overflow:hidden;
+  background:var(--card);
+  box-shadow:var(--shadow);
+  margin-bottom:1.5rem;
+  transition:box-shadow .2s,border-color .2s;
+}
+.tool-row:hover{box-shadow:var(--shadow-md);border-color:var(--border2);}
+.tool-row.reverse{direction:rtl;}
+.tool-row.reverse > *{direction:ltr;}
+
+/* Top accent line per card */
+.tool-info{
+  padding:2.5rem;
+  display:flex;flex-direction:column;gap:1.1rem;
+  position:relative;
+}
+.tool-info::before{
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+}
+.tool-info.free::before{background:linear-gradient(90deg,transparent,var(--teal),transparent);}
+.tool-info.paid::before{background:linear-gradient(90deg,transparent,var(--amber),transparent);}
+
+.tool-header-row{display:flex;align-items:flex-start;justify-content:space-between;}
+.tool-icon-box{
+  width:46px;height:46px;border-radius:11px;
+  border:1.5px solid var(--border);
+  background:var(--bg);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.35rem;
+}
+.badge{
+  font-size:0.67rem;font-weight:600;text-transform:uppercase;
+  letter-spacing:0.08em;padding:0.25rem 0.65rem;border-radius:100px;
+}
+.badge-free{background:var(--green-lt);color:var(--green);border:1px solid rgba(21,128,61,0.2);}
+.badge-ai{background:var(--amber-lt);color:var(--amber);border:1px solid rgba(180,83,9,0.25);}
+.badge-soon{background:var(--bg);color:var(--muted);border:1px solid var(--border);}
+
+.tool-name{font-size:1.25rem;font-weight:600;letter-spacing:-0.02em;color:var(--ink);}
+.tool-tagline{font-size:0.82rem;color:var(--ink3);font-weight:300;}
+.tool-desc{font-size:0.875rem;color:var(--ink2);font-weight:300;line-height:1.8;flex:1;}
+
+.tool-facts{display:flex;flex-direction:column;gap:0.45rem;}
+.fact{display:flex;align-items:center;gap:0.6rem;font-size:0.79rem;color:var(--ink3);}
+.fact::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--teal);flex-shrink:0;}
+.fact.amber::before{background:var(--amber);}
+
+.tool-cta-row{
+  display:flex;align-items:center;justify-content:space-between;
+  padding-top:1.1rem;border-top:1px solid var(--border);margin-top:auto;
+}
+.tool-link{
+  font-size:0.82rem;font-weight:600;text-decoration:none;
+  display:inline-flex;align-items:center;gap:0.4rem;
+  transition:gap .2s;
+}
+.tool-link.teal{color:var(--teal);}
+.tool-link.amber{color:var(--amber);}
+.tool-link:hover{gap:0.7rem;}
+.tool-tags{display:flex;gap:0.35rem;flex-wrap:wrap;}
+.ttag{
+  font-size:0.67rem;color:var(--muted);
+  background:var(--bg);border:1px solid var(--border);
+  padding:0.18rem 0.5rem;border-radius:4px;
+}
+
+/* Tool visual panel */
+.tool-visual{
+  background:var(--card2);
+  padding:2.5rem;
+  display:flex;align-items:center;justify-content:center;
+  min-height:340px;position:relative;overflow:hidden;
+}
+/* Subtle dot grid on visual panels */
+.tool-visual::before{
+  content:'';position:absolute;inset:0;
+  background-image:radial-gradient(var(--border) 1px,transparent 1px);
+  background-size:18px 18px;
+  opacity:0.7;
+}
+.vis-inner{position:relative;z-index:1;width:100%;max-width:300px;}
+
+/* SkillMapper preview widget */
+.skill-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-bottom:12px;}
+.sk{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:7px;padding:5px 7px;
+  font-size:0.65rem;color:var(--ink3);text-align:center;
+  transition:all .2s;
+}
+.sk.lit{border-color:rgba(15,118,110,0.4);color:var(--teal);background:var(--teal-lt);}
+.sk.hi{border-color:var(--teal);color:var(--teal);background:var(--teal-lt);font-weight:600;box-shadow:0 0 0 2px rgba(15,118,110,0.12);}
+
+.sal-card{
+  background:var(--card);border:1.5px solid var(--border);
+  border-radius:10px;padding:12px 14px;margin-top:2px;
+}
+.sal-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.sal-label{font-size:0.65rem;color:var(--ink3);}
+.sal-role{font-size:0.75rem;font-weight:600;color:var(--ink);}
+.sal-levels{display:flex;gap:5px;margin-bottom:8px;}
+.sal-lv{
+  font-size:0.65rem;font-weight:600;padding:3px 8px;border-radius:5px;
+  border:1px solid var(--border);color:var(--ink3);background:var(--bg);cursor:pointer;
+}
+.sal-lv.active{background:var(--teal-lt);border-color:var(--teal);color:var(--teal);}
+.sal-track-wrap{display:flex;align-items:center;gap:8px;}
+.sal-track{flex:1;height:5px;background:var(--bg);border-radius:3px;position:relative;}
+.sal-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--teal),rgba(15,118,110,0.4));}
+.sal-marker{
+  position:absolute;top:-4px;right:28%;
+  width:13px;height:13px;border-radius:50%;
+  background:var(--teal);border:2px solid white;
+  box-shadow:0 1px 4px rgba(0,0,0,0.15);
+}
+.sal-num{font-size:0.72rem;font-weight:600;color:var(--ink);white-space:nowrap;}
+
+/* TalentXRay preview widget */
+.txr-chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
+.txr-chip{
+  padding:4px 10px;border-radius:6px;font-size:0.68rem;font-weight:500;
+  background:var(--bg);border:1.5px solid var(--border);color:var(--ink3);cursor:pointer;
+}
+.txr-chip.on{background:var(--teal-lt);border-color:var(--teal);color:var(--teal);}
+.txr-code{
+  background:var(--ink);border-radius:9px;padding:12px 14px;
+  font-size:0.64rem;font-family:'Courier New',monospace;
+  line-height:1.7;margin-bottom:8px;
+}
+.txr-code .kw{color:#5eead4;}
+.txr-code .op{color:#93c5fd;}
+.txr-code .site{color:#86efac;}
+.txr-code .plain{color:#d1d5db;}
+.txr-result{
+  background:rgba(15,118,110,0.08);
+  border:1px solid rgba(15,118,110,0.2);
+  border-radius:7px;padding:8px 12px;
+  font-size:0.7rem;color:var(--teal);
+  display:flex;align-items:center;gap:6px;
+}
+
+/* HR AI preview */
+.ai-card{
+  background:var(--card);border:1.5px solid var(--border);
+  border-radius:11px;padding:14px;display:flex;flex-direction:column;gap:10px;
+}
+.ai-row{display:flex;justify-content:space-between;align-items:center;}
+.ai-k{font-size:0.67rem;color:var(--ink3);}
+.ai-v{font-size:0.73rem;font-weight:600;color:var(--ink);}
+.ai-divider{height:1px;background:var(--border);}
+.ai-bars{display:flex;flex-direction:column;gap:7px;}
+.ai-bar-row{display:flex;align-items:center;gap:8px;}
+.ai-bar-lbl{font-size:0.65rem;color:var(--ink3);min-width:76px;}
+.ai-bar-track{flex:1;height:5px;background:var(--card2);border-radius:3px;}
+.ai-bar-fill{height:100%;border-radius:3px;}
+.ai-bar-val{font-size:0.67rem;font-weight:600;min-width:40px;text-align:right;}
+.ai-note{font-size:0.67rem;color:var(--amber);line-height:1.55;background:var(--amber-lt);padding:7px 10px;border-radius:7px;}
+
+/* ═══ STATS ═══ */
+.stats-section{background:var(--bg);border-bottom:1px solid var(--border);}
+.stats-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border:1.5px solid var(--border);border-radius:16px;overflow:hidden;
+  box-shadow:var(--shadow-sm);
+}
+.stat-card{
+  background:var(--card);padding:2rem 1.5rem;text-align:center;
+  border-right:1px solid var(--border);
+}
+.stat-card:last-child{border-right:none;}
+.stat-val{
+  font-family:var(--serif);font-size:2.8rem;font-weight:300;
+  letter-spacing:-0.04em;color:var(--teal);line-height:1;
+  margin-bottom:0.4rem;
+}
+.stat-label{font-size:0.75rem;color:var(--ink3);font-weight:400;letter-spacing:0.02em;}
+
+/* ═══ HOW IT WORKS ═══ */
+.how-section{background:var(--bg2);border-bottom:1px solid var(--border);}
+.how-header{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:3rem;align-items:end;margin-bottom:3rem;
+}
+.how-tabs{display:flex;gap:0.4rem;margin-bottom:2.5rem;}
+.how-tab{
+  padding:0.45rem 1rem;border-radius:7px;
+  font-size:0.82rem;font-weight:500;
+  cursor:pointer;border:1.5px solid var(--border);
+  background:transparent;color:var(--ink3);
+  transition:all .18s;font-family:var(--sans);
+}
+.how-tab.active{
+  background:var(--teal-lt);border-color:rgba(15,118,110,0.3);
+  color:var(--teal);
+}
+.how-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border:1.5px solid var(--border);border-radius:16px;overflow:hidden;
+}
+.how-step{
+  background:var(--card);padding:2.25rem 2rem;
+  border-right:1px solid var(--border);
+}
+.how-step:last-child{border-right:none;}
+.step-num{
+  font-family:var(--serif);font-size:2.5rem;font-weight:300;
+  color:rgba(15,118,110,0.12);letter-spacing:-0.04em;
+  line-height:1;margin-bottom:1rem;
+}
+.step-title{font-size:0.9rem;font-weight:600;margin-bottom:0.5rem;letter-spacing:-0.01em;}
+.step-desc{font-size:0.82rem;color:var(--ink3);font-weight:300;line-height:1.75;}
+
+/* ═══ PRICING ═══ */
+.pricing-section{background:var(--bg);}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem;}
+.price-card{
+  background:var(--card);border:1.5px solid var(--border);
+  border-radius:16px;padding:2.25rem;
+  display:flex;flex-direction:column;gap:1.25rem;
+  box-shadow:var(--shadow-sm);
+  position:relative;
+}
+.price-card.featured{
+  border-color:rgba(15,118,110,0.35);
+  background:linear-gradient(160deg,var(--teal-lt) 0%,var(--card) 35%);
+  box-shadow:var(--shadow);
+}
+.price-card.featured::before{
+  content:'Coming Soon';
+  position:absolute;top:0;right:2rem;
+  background:var(--teal);color:#fff;
+  font-size:0.65rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;
+  padding:0.25rem 0.8rem;border-radius:0 0 7px 7px;
+}
+.price-tier{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--muted);font-weight:600;}
+.price-val{
+  font-family:var(--serif);font-size:2.8rem;font-weight:300;
+  letter-spacing:-0.04em;color:var(--ink);line-height:1;
+}
+.price-val sub{font-family:var(--sans);font-size:0.85rem;color:var(--ink3);font-weight:300;vertical-align:baseline;}
+.price-desc{font-size:0.85rem;color:var(--ink3);font-weight:300;line-height:1.65;}
+.price-divider{height:1px;background:var(--border);}
+.price-feats{display:flex;flex-direction:column;gap:0.7rem;flex:1;}
+.pf{display:flex;align-items:flex-start;gap:0.6rem;font-size:0.82rem;color:var(--ink2);}
+.pf-y{color:var(--green);font-size:0.75rem;margin-top:1px;flex-shrink:0;}
+.pf-t{color:var(--teal);font-size:0.75rem;margin-top:1px;flex-shrink:0;}
+
+/* ═══ WHY ═══ */
+.why-section{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.why-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  border:1.5px solid var(--border);border-radius:16px;overflow:hidden;
+  box-shadow:var(--shadow-sm);margin-top:3rem;
+}
+.why-item{
+  background:var(--card);padding:2.25rem;
+  border-right:1px solid var(--border);
+}
+.why-item:last-child{border-right:none;}
+.why-item:nth-child(4){border-top:1px solid var(--border);}
+.why-item:nth-child(5){border-top:1px solid var(--border);}
+.why-item:nth-child(6){border-top:1px solid var(--border);border-right:none;}
+.why-ico{font-size:1.4rem;margin-bottom:1.1rem;}
+.why-title{font-size:0.9rem;font-weight:600;margin-bottom:0.45rem;letter-spacing:-0.01em;}
+.why-desc{font-size:0.81rem;color:var(--ink3);font-weight:300;line-height:1.72;}
+
+/* ═══ SEO BLOG STRIP ═══ */
+.seo-section{background:var(--bg);padding:4rem 0;}
+.seo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2.5rem;}
+.seo-card{
+  background:var(--card);border:1.5px solid var(--border);
+  border-radius:12px;padding:1.5rem;
+  box-shadow:var(--shadow-sm);
+}
+.seo-tag{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--teal);font-weight:600;margin-bottom:0.6rem;}
+.seo-title{font-size:0.88rem;font-weight:600;color:var(--ink);margin-bottom:0.5rem;letter-spacing:-0.01em;line-height:1.4;}
+.seo-body{font-size:0.79rem;color:var(--ink3);line-height:1.7;font-weight:300;}
+.seo-link{font-size:0.78rem;font-weight:600;color:var(--teal);text-decoration:none;display:inline-flex;align-items:center;gap:0.3rem;margin-top:0.75rem;}
+
+/* ═══ WAITLIST CTA ═══ */
+.cta-section{background:var(--teal-lt);border-top:1px solid var(--teal-mid);border-bottom:1px solid var(--teal-mid);}
+.cta-inner{
+  text-align:center;padding:4rem 2rem;max-width:640px;margin:0 auto;
+}
+.cta-inner .sec-label{justify-content:center;}
+.cta-inner .sec-label::before{display:none;}
+.cta-inner .sec-h{margin-bottom:0.75rem;}
+.cta-inner p{color:var(--ink3);font-size:0.9rem;font-weight:300;max-width:440px;margin:0 auto 2rem;line-height:1.8;}
+.waitlist-row{display:flex;gap:0.5rem;max-width:420px;margin:0 auto;flex-wrap:wrap;justify-content:center;}
+.w-input{
+  flex:1;min-width:200px;
+  background:var(--card);border:1.5px solid var(--border);
+  border-radius:8px;padding:0.72rem 1rem;
+  color:var(--ink);font-family:var(--sans);font-size:0.875rem;
+  outline:none;transition:border-color .15s;
+}
+.w-input:focus{border-color:var(--teal);}
+.w-input::placeholder{color:var(--muted);}
+.cta-tags{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;margin-top:1.25rem;}
+.cta-tag{font-size:0.72rem;color:var(--ink3);display:flex;align-items:center;gap:0.4rem;}
+
+/* ═══ TRUST BAR ═══ */
+.trust-bar{
+  background:var(--card);border-bottom:1px solid var(--border);
+  padding:1.25rem 0;
+}
+.trust-inner{
+  max-width:1080px;margin:0 auto;padding:0 2rem;
+  display:flex;align-items:center;justify-content:center;
+  gap:2.5rem;flex-wrap:wrap;
+}
+.flag-chip{display:flex;align-items:center;gap:6px;font-size:0.8rem;color:var(--ink3);}
+.flag-chip strong{color:var(--ink);font-weight:500;}
+.t-div{width:1px;height:18px;background:var(--border);}
+.trust-note{font-size:0.79rem;color:var(--ink3);}
+.trust-note strong{color:var(--ink);}
+
+/* ═══ FOOTER ═══ */
+footer{
+  background:var(--ink);
+  padding:2.5rem 2rem;color:rgba(255,255,255,0.5);
+}
+.footer-inner{
+  max-width:1080px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1.5rem;
+}
+.footer-logo{display:flex;align-items:center;gap:9px;text-decoration:none;color:#fff;font-weight:600;font-size:0.9rem;}
+.footer-links{display:flex;gap:1.5rem;}
+.footer-links a{color:rgba(255,255,255,0.45);font-size:0.78rem;text-decoration:none;transition:color .15s;}
+.footer-links a:hover{color:#fff;}
+.footer-copy{font-size:0.75rem;color:rgba(255,255,255,0.35);}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(16px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s var(--ease),transform .55s var(--ease);}
+.reveal.up{opacity:1;transform:translateY(0);}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:900px){
+  .tools-intro{grid-template-columns:1fr;gap:1.5rem;}
+  .tool-row{grid-template-columns:1fr;}
+  .tool-row.reverse{direction:ltr;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .stat-card:nth-child(2){border-right:none;}
+  .stat-card:nth-child(3){border-top:1px solid var(--border);}
+  .stat-card:nth-child(4){border-top:1px solid var(--border);border-right:none;}
+  .how-header{grid-template-columns:1fr;gap:1.5rem;}
+  .how-grid{grid-template-columns:1fr;}
+  .how-step{border-right:none;border-bottom:1px solid var(--border);}
+  .how-step:last-child{border-bottom:none;}
+  .pricing-grid{grid-template-columns:1fr;}
+  .why-grid{grid-template-columns:1fr 1fr;}
+  .seo-grid{grid-template-columns:1fr;}
+  .nav-links{display:none;}
+  .tool-visual{min-height:260px;}
+}
+@media(max-width:600px){
+  .hero h1{font-size:2.4rem;}
+  .hero-proof{gap:1rem;}
+  .proof-sep{display:none;}
+  .why-grid{grid-template-columns:1fr;}
+  .why-item:nth-child(n){border-right:none;border-top:1px solid var(--border);}
+  .why-item:first-child{border-top:none;}
+  .cta-inner{padding:2.5rem 1.25rem;}
+}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav aria-label="Main navigation">
+  <a href="#" class="nav-logo" aria-label="Talents Radar home">
+    <span class="logo-icon" aria-hidden="true">◎</span>
+    Talents Radar
+  </a>
+  <div class="nav-links" role="navigation">
+    <a href="#tools" class="nav-a">Tools</a>
+    <a href="#how" class="nav-a">How It Works</a>
+    <a href="#pricing" class="nav-a">Pricing</a>
+    <a href="#waitlist" class="nav-a">Early Access</a>
+  </div>
+  <div class="nav-right">
+    <a href="https://talentxray.talentsradar.com" target="_blank" rel="noopener" class="btn btn-ghost">TalentXRay ↗</a>
+    <a href="https://skillmapper-hrfk.netlify.app" target="_blank" rel="noopener" class="btn btn-teal">Try SkillMapper Free</a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero" role="banner">
+  <div class="hero-inner">
+    <div class="hero-badge"><span class="badge-dot" aria-hidden="true"></span>Free tools — no signup required</div>
+    <h1>Know what a role needs.<br/><em>Find who fits it.</em></h1>
+    <p class="hero-sub">
+      Two free HR tools that replace guesswork with data. Map skills, benchmark salaries, and generate Boolean search strings — right in your browser.
+    </p>
+    <div class="hero-ctas">
+      <a href="https://skillmapper-hrfk.netlify.app" target="_blank" rel="noopener" class="btn btn-teal btn-lg">
+        Try SkillMapper Free →
+      </a>
+      <a href="https://talentxray.talentsradar.com" target="_blank" rel="noopener" class="btn btn-ghost btn-lg">
+        Open TalentXRay
+      </a>
+    </div>
+    <div class="hero-proof" aria-label="Usage statistics">
+      <span><strong>265+</strong> active users</span>
+      <span class="proof-sep" aria-hidden="true"></span>
+      <span>🇮🇳 India &nbsp;·&nbsp; 🇺🇸 US &nbsp;·&nbsp; 🇬🇧 UK &nbsp;·&nbsp; 🇩🇪 Germany</span>
+      <span class="proof-sep" aria-hidden="true"></span>
+      <span><strong>1,394+</strong> skills mapped</span>
+      <span class="proof-sep" aria-hidden="true"></span>
+      <span><strong>200+</strong> roles benchmarked</span>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ TRUST BAR ═══ -->
+<div class="trust-bar" role="complementary" aria-label="User locations">
+  <div class="trust-inner">
+    <div class="flag-chip">🇮🇳 <strong>India</strong></div>
+    <div class="t-div" aria-hidden="true"></div>
+    <div class="flag-chip">🇺🇸 <strong>United States</strong></div>
+    <div class="t-div" aria-hidden="true"></div>
+    <div class="flag-chip">🇬🇧 <strong>United Kingdom</strong></div>
+    <div class="t-div" aria-hidden="true"></div>
+    <div class="flag-chip">🇩🇪 <strong>Germany</strong></div>
+    <div class="t-div" aria-hidden="true"></div>
+    <p class="trust-note">Used by <strong>recruiters, HRBPs and founders</strong> at startups and scaling companies</p>
+  </div>
+</div>
+
+<!-- ═══ TOOLS ═══ -->
+<section class="tools-section" id="tools" aria-labelledby="tools-heading">
+  <div class="wrap">
+    <div class="tools-intro">
+      <div>
+        <div class="sec-label reveal">The Tools</div>
+        <h2 class="sec-h reveal" id="tools-heading">Two free tools.<br/>Two <em>paid AI tools</em> coming.</h2>
+      </div>
+      <p class="sec-p reveal">SkillMapper and TalentXRay are free — permanently. The HR AI suite launches soon with early access pricing for people on the waitlist.</p>
+    </div>
+
+    <!-- SkillMapper -->
+    <article class="tool-row reveal" aria-label="SkillMapper tool">
+      <div class="tool-info free">
+        <div class="tool-header-row">
+          <div class="tool-icon-box" aria-hidden="true">🗺️</div>
+          <span class="badge badge-free">Free Forever</span>
+        </div>
+        <div>
+          <h3 class="tool-name">SkillMapper</h3>
+          <p class="tool-tagline">Salary benchmarks + skill profiles for 200+ roles</p>
+        </div>
+        <p class="tool-desc">
+          Before writing a job description, know exactly what the role requires. SkillMapper gives you the must-have skills, nice-to-have skills, and real salary data — in INR and USD — for 200+ roles across 18 departments. Candidates use it to know if they are being paid fairly. HR teams use it to write better JDs and set offer ranges.
+        </p>
+        <div class="tool-facts" aria-label="SkillMapper features">
+          <div class="fact">1,394+ skills across 18 departments</div>
+          <div class="fact">200+ roles with INR &amp; USD salary benchmarks</div>
+          <div class="fact">Junior / Mid / Senior / Lead salary bands</div>
+          <div class="fact">One-click handoff to TalentXRay for sourcing</div>
+          <div class="fact">Three ways to search: by skills, title, or plain English</div>
+        </div>
+        <div class="tool-cta-row">
+          <a href="https://skillmapper-hrfk.netlify.app" target="_blank" rel="noopener" class="tool-link teal" aria-label="Open SkillMapper in new tab">
+            Open SkillMapper →
+          </a>
+          <div class="tool-tags" aria-label="Supported departments">
+            <span class="ttag">Engineering</span>
+            <span class="ttag">Data</span>
+            <span class="ttag">Product</span>
+            <span class="ttag">+15 more</span>
+          </div>
+        </div>
+      </div>
+      <div class="tool-visual" aria-hidden="true">
+        <div class="vis-inner">
+          <!-- Skill constellation -->
+          <div class="skill-grid" id="skillGridVis"></div>
+          <!-- Salary card -->
+          <div class="sal-card">
+            <div class="sal-top">
+              <span class="sal-label">Salary benchmark</span>
+              <span class="sal-role">Senior Data Engineer · Bengaluru</span>
+            </div>
+            <div class="sal-levels">
+              <button class="sal-lv">Junior</button>
+              <button class="sal-lv">Mid</button>
+              <button class="sal-lv active">Senior</button>
+              <button class="sal-lv">Lead</button>
+            </div>
+            <div class="sal-track-wrap">
+              <div class="sal-track" style="flex:1;">
+                <div class="sal-fill" style="width:72%;"></div>
+                <div class="sal-marker"></div>
+              </div>
+              <span class="sal-num">₹32–60L &nbsp;·&nbsp; $168–225k</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- TalentXRay -->
+    <article class="tool-row reverse reveal" aria-label="TalentXRay tool">
+      <div class="tool-info free">
+        <div class="tool-header-row">
+          <div class="tool-icon-box" aria-hidden="true">🔍</div>
+          <span class="badge badge-free">Free Forever</span>
+        </div>
+        <div>
+          <h3 class="tool-name">TalentXRay</h3>
+          <p class="tool-tagline">Boolean X-Ray search strings for LinkedIn, GitHub &amp; more</p>
+        </div>
+        <p class="tool-desc">
+          The strongest candidates are not applying — they are already on LinkedIn, GitHub, Stack Overflow, and Behance. TalentXRay generates precise Boolean X-Ray search strings in seconds so you can find them. No LinkedIn Recruiter licence needed. Works on any platform via Google.
+        </p>
+        <div class="tool-facts" aria-label="TalentXRay features">
+          <div class="fact">LinkedIn, GitHub, Stack Overflow, Behance</div>
+          <div class="fact">Role + skills + location targeting</div>
+          <div class="fact">Instant export-ready Boolean strings</div>
+          <div class="fact">No recruiter licence required</div>
+        </div>
+        <div class="tool-cta-row">
+          <a href="https://talentxray.talentsradar.com" target="_blank" rel="noopener" class="tool-link teal" aria-label="Open TalentXRay in new tab">
+            Open TalentXRay →
+          </a>
+          <div class="tool-tags" aria-label="Supported platforms">
+            <span class="ttag">LinkedIn</span>
+            <span class="ttag">GitHub</span>
+            <span class="ttag">Behance</span>
+          </div>
+        </div>
+      </div>
+      <div class="tool-visual" aria-hidden="true">
+        <div class="vis-inner">
+          <div class="txr-chips">
+            <span class="txr-chip on">LinkedIn</span>
+            <span class="txr-chip">GitHub</span>
+            <span class="txr-chip">Stack Overflow</span>
+            <span class="txr-chip">Behance</span>
+          </div>
+          <div class="txr-code">
+            <span class="site">site:linkedin.com/in</span>
+            <span class="plain"> </span><span class="op">AND</span>
+            <span class="plain"> (</span><span class="kw">"machine learning"</span>
+            <span class="plain"> </span><span class="op">OR</span>
+            <span class="plain"> </span><span class="kw">"ML engineer"</span><span class="plain">)</span><br/>
+            <span class="op">AND</span>
+            <span class="plain"> (</span><span class="kw">"PyTorch"</span>
+            <span class="plain"> </span><span class="op">OR</span>
+            <span class="plain"> </span><span class="kw">"TensorFlow"</span><span class="plain">)</span><br/>
+            <span class="op">AND</span>
+            <span class="plain"> </span><span class="kw">"Bengaluru"</span>
+          </div>
+          <div class="txr-result">
+            <span>✓</span>
+            String ready — paste into Google to find candidates
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- HR AI: Headcount -->
+    <article class="tool-row reveal" aria-label="HR AI Headcount tool — coming soon">
+      <div class="tool-info paid">
+        <div class="tool-header-row">
+          <div class="tool-icon-box" aria-hidden="true">📊</div>
+          <div style="display:flex;gap:.4rem;">
+            <span class="badge badge-ai">AI</span>
+            <span class="badge badge-soon">Coming Soon</span>
+          </div>
+        </div>
+        <div>
+          <h3 class="tool-name">HR AI: Headcount</h3>
+          <p class="tool-tagline">Hiring plan from your revenue target and roadmap</p>
+        </div>
+        <p class="tool-desc">
+          Most headcount plans are built after the pressure to hire is already on. HR AI: Headcount works forward. Tell it your company stage, revenue target, and product roadmap — it gives you a role-by-role hiring plan aligned to what the business actually needs.
+        </p>
+        <div class="tool-facts" aria-label="HR AI Headcount features">
+          <div class="fact amber">Stage-aware hiring recommendations</div>
+          <div class="fact amber">Revenue-to-headcount modelling</div>
+          <div class="fact amber">Roadmap-linked role prioritisation</div>
+          <div class="fact amber">Built for founders and finance-HR teams</div>
+        </div>
+        <div class="tool-cta-row">
+          <a href="#waitlist" class="tool-link amber">Join Early Access →</a>
+          <div class="tool-tags">
+            <span class="ttag">Paid</span>
+            <span class="ttag">AI</span>
+            <span class="ttag">Founders</span>
+          </div>
+        </div>
+      </div>
+      <div class="tool-visual" aria-hidden="true">
+        <div class="vis-inner">
+          <div class="ai-card">
+            <div class="ai-row">
+              <span class="ai-k">Company stage</span>
+              <span class="ai-v">Series A · 40 employees</span>
+            </div>
+            <div class="ai-row">
+              <span class="ai-k">Revenue target</span>
+              <span class="ai-v">$2M ARR in 12 months</span>
+            </div>
+            <div class="ai-divider"></div>
+            <span style="font-size:0.68rem;color:var(--ink3);">Recommended hires — next 6 months</span>
+            <div class="ai-bars">
+              <div class="ai-bar-row">
+                <span class="ai-bar-lbl">Engineering</span>
+                <div class="ai-bar-track"><div class="ai-bar-fill" style="width:70%;background:var(--amber);"></div></div>
+                <span class="ai-bar-val" style="color:var(--amber);">4 roles</span>
+              </div>
+              <div class="ai-bar-row">
+                <span class="ai-bar-lbl">Sales</span>
+                <div class="ai-bar-track"><div class="ai-bar-fill" style="width:50%;background:#6d28d9;"></div></div>
+                <span class="ai-bar-val" style="color:#6d28d9;">3 roles</span>
+              </div>
+              <div class="ai-bar-row">
+                <span class="ai-bar-lbl">Growth</span>
+                <div class="ai-bar-track"><div class="ai-bar-fill" style="width:30%;background:var(--green);"></div></div>
+                <span class="ai-bar-val" style="color:var(--green);">2 roles</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- HR AI: Retention -->
+    <article class="tool-row reverse reveal" aria-label="HR AI Retention tool — coming soon">
+      <div class="tool-info paid">
+        <div class="tool-header-row">
+          <div class="tool-icon-box" aria-hidden="true">🛡️</div>
+          <div style="display:flex;gap:.4rem;">
+            <span class="badge badge-ai">AI</span>
+            <span class="badge badge-soon">Coming Soon</span>
+          </div>
+        </div>
+        <div>
+          <h3 class="tool-name">HR AI: Retention</h3>
+          <p class="tool-tagline">Diagnose attrition risk before people hand in notice</p>
+        </div>
+        <p class="tool-desc">
+          By the time someone resigns, you have already lost them. HR AI: Retention surfaces early warning signals — manager behaviour, compensation gaps, growth stagnation, team dynamics — and gives your HRBP specific interventions to act on, not dashboards to stare at.
+        </p>
+        <div class="tool-facts" aria-label="HR AI Retention features">
+          <div class="fact amber">Multi-factor attrition signal detection</div>
+          <div class="fact amber">HRBP-ready intervention playbooks</div>
+          <div class="fact amber">Acts before the exit interview</div>
+          <div class="fact amber">Built for 20–200 person companies</div>
+        </div>
+        <div class="tool-cta-row">
+          <a href="#waitlist" class="tool-link amber">Join Early Access →</a>
+          <div class="tool-tags">
+            <span class="ttag">Paid</span>
+            <span class="ttag">AI</span>
+            <span class="ttag">HRBP</span>
+          </div>
+        </div>
+      </div>
+      <div class="tool-visual" aria-hidden="true">
+        <div class="vis-inner">
+          <div class="ai-card">
+            <span style="font-size:0.68rem;color:var(--ink3);">Attrition risk signals detected</span>
+            <div class="ai-bars">
+              <div class="ai-bar-row">
+                <span class="ai-bar-lbl">Manager quality</span>
+                <div class="ai-bar-track"><div class="ai-bar-fill" style="width:82%;background:#dc2626;"></div></div>
+                <span class="ai-bar-val" style="color:#dc2626;">High</span>
+              </div>
+              <div class="ai-bar-row">
+                <span class="ai-bar-lbl">Growth path</span>
+                <div class="ai-bar-track"><div class="ai-bar-fill" style="width:52%;background:var(--amber);"></div></div>
+                <span class="ai-bar-val" style="color:var(--amber);">Medium</span>
+              </div>
+              <div class="ai-bar-row">
+                <span class="ai-bar-lbl">Comp gap</span>
+                <div class="ai-bar-track"><div class="ai-bar-fill" style="width:28%;background:var(--green);"></div></div>
+                <span class="ai-bar-val" style="color:var(--green);">Low</span>
+              </div>
+            </div>
+            <div class="ai-note">
+              ↗ Recommended: Run skip-level 1:1 this week. Clarify growth path in next performance cycle.
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ═══ STATS ═══ -->
+<section class="stats-section" aria-label="Usage statistics">
+  <div class="wrap">
+    <div class="stats-grid reveal">
+      <div class="stat-card">
+        <div class="stat-val">265+</div>
+        <div class="stat-label">Active users globally</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">1,394+</div>
+        <div class="stat-label">Skills in the database</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">200+</div>
+        <div class="stat-label">Roles benchmarked</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val">18</div>
+        <div class="stat-label">Departments covered</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="how-section" id="how" aria-labelledby="how-heading">
+  <div class="wrap">
+    <div class="how-header">
+      <div>
+        <div class="sec-label reveal">How It Works</div>
+        <h2 class="sec-h reveal" id="how-heading">Open the tool.<br/><em>Use it immediately.</em></h2>
+      </div>
+      <p class="sec-p reveal">No signup. No onboarding. No demo call. Both free tools work in your browser in under 60 seconds.</p>
+    </div>
+    <div class="how-tabs" role="tablist" id="howTabs">
+      <button class="how-tab active" role="tab" aria-selected="true" aria-controls="tab-sm" onclick="switchHowTab('sm',this)">SkillMapper</button>
+      <button class="how-tab" role="tab" aria-selected="false" aria-controls="tab-txr" onclick="switchHowTab('txr',this)">TalentXRay</button>
+    </div>
+
+    <div id="tab-sm" role="tabpanel" class="how-grid reveal">
+      <div class="how-step">
+        <div class="step-num">01</div>
+        <h3 class="step-title">Pick a role or type your skills</h3>
+        <p class="step-desc">Choose from 200+ pre-mapped roles across 18 departments, search by job title, or describe what you need in plain English. No configuration needed.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">02</div>
+        <h3 class="step-title">See the full skill profile</h3>
+        <p class="step-desc">Get must-have skills, nice-to-have skills, and seniority expectations instantly. Use it to write a job description, evaluate a CV, or build a levelling framework.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">03</div>
+        <h3 class="step-title">Check the salary benchmark</h3>
+        <p class="step-desc">See market-rate salary ranges in INR and USD across Junior, Mid, Senior, and Lead bands. Candidates use it to negotiate. HR uses it to set offer bands that will not lose candidates.</p>
+      </div>
+    </div>
+
+    <div id="tab-txr" role="tabpanel" class="how-grid reveal" style="display:none;">
+      <div class="how-step">
+        <div class="step-num">01</div>
+        <h3 class="step-title">Describe who you are looking for</h3>
+        <p class="step-desc">Tell TalentXRay the role, key skills, location, and target platform. No Boolean syntax knowledge needed — just describe the person you want to find.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">02</div>
+        <h3 class="step-title">Get the search string instantly</h3>
+        <p class="step-desc">A precise Boolean X-Ray search string is generated for LinkedIn, GitHub, Stack Overflow, or Behance — ready to paste directly into Google.</p>
+      </div>
+      <div class="how-step">
+        <div class="step-num">03</div>
+        <h3 class="step-title">Find candidates others miss</h3>
+        <p class="step-desc">Surface profiles that never applied, are not on job boards, and are not in any ATS. No LinkedIn Recruiter licence required.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PRICING ═══ -->
+<section class="pricing-section" id="pricing" aria-labelledby="pricing-heading">
+  <div class="wrap">
+    <div class="sec-label reveal">Pricing</div>
+    <h2 class="sec-h reveal" id="pricing-heading">Free tools stay free.<br/><em>AI tools</em> are paid.</h2>
+    <p class="sec-p reveal">SkillMapper and TalentXRay will never go behind a paywall. The HR AI suite is for teams that need more.</p>
+
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <div>
+          <div class="price-tier">Free Forever</div>
+          <div class="price-val">₹0<sub> / always</sub></div>
+          <p class="price-desc">Full access to both tools. No credit card. No trial clock. No feature gates.</p>
+        </div>
+        <div class="price-divider"></div>
+        <div class="price-feats">
+          <div class="pf"><span class="pf-y">✓</span>SkillMapper — unlimited searches</div>
+          <div class="pf"><span class="pf-y">✓</span>TalentXRay — unlimited strings</div>
+          <div class="pf"><span class="pf-y">✓</span>1,394+ skills database</div>
+          <div class="pf"><span class="pf-y">✓</span>INR &amp; USD salary benchmarks</div>
+          <div class="pf"><span class="pf-y">✓</span>Boolean strings for 4 platforms</div>
+          <div class="pf"><span class="pf-y">✓</span>200+ role profiles</div>
+        </div>
+        <a href="https://skillmapper-hrfk.netlify.app" target="_blank" rel="noopener" class="btn btn-ghost btn-lg" style="text-align:center;justify-content:center;">Start for Free →</a>
+      </div>
+
+      <div class="price-card featured reveal">
+        <div>
+          <div class="price-tier">HR AI Suite</div>
+          <div class="price-val" style="color:var(--teal);">TBD</div>
+          <p class="price-desc">Launching soon. Join the waitlist now and lock in founder pricing — permanently.</p>
+        </div>
+        <div class="price-divider"></div>
+        <div class="price-feats">
+          <div class="pf"><span class="pf-y">✓</span>Everything in Free</div>
+          <div class="pf"><span class="pf-t">✦</span>HR AI: Headcount planner</div>
+          <div class="pf"><span class="pf-t">✦</span>HR AI: Retention co-pilot</div>
+          <div class="pf"><span class="pf-t">✦</span>Revenue-linked hiring plans</div>
+          <div class="pf"><span class="pf-t">✦</span>Attrition risk diagnostics</div>
+          <div class="pf"><span class="pf-t">✦</span>HRBP intervention playbooks</div>
+          <div class="pf"><span class="pf-t">✦</span>Founder pricing locked in</div>
+        </div>
+        <a href="#waitlist" class="btn btn-teal btn-lg" style="text-align:center;justify-content:center;">Join Early Access →</a>
+      </div>
+
+      <div class="price-card reveal">
+        <div>
+          <div class="price-tier">Enterprise</div>
+          <div class="price-val">Custom</div>
+          <p class="price-desc">For HR teams needing custom integrations, white-label access, or dedicated support.</p>
+        </div>
+        <div class="price-divider"></div>
+        <div class="price-feats">
+          <div class="pf"><span class="pf-y">✓</span>Everything in HR AI</div>
+          <div class="pf"><span class="pf-y">✓</span>Custom data integrations</div>
+          <div class="pf"><span class="pf-y">✓</span>Dedicated onboarding</div>
+          <div class="pf"><span class="pf-y">✓</span>SLA &amp; priority support</div>
+          <div class="pf"><span class="pf-y">✓</span>White-label option</div>
+        </div>
+        <a href="mailto:hello@talentsradar.com" class="btn btn-ghost btn-lg" style="text-align:center;justify-content:center;">Contact Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WHY ═══ -->
+<section class="why-section" id="why" aria-labelledby="why-heading">
+  <div class="wrap">
+    <div class="sec-label reveal">Why Talents Radar</div>
+    <h2 class="sec-h reveal" id="why-heading">Built for the work.<br/>Not the <em>vendor demo.</em></h2>
+    <div class="why-grid">
+      <div class="why-item reveal">
+        <div class="why-ico" aria-hidden="true">⚡</div>
+        <h3 class="why-title">Open and use in 60 seconds</h3>
+        <p class="why-desc">Both free tools open in your browser immediately. No demo, no onboarding call, no IT ticket. The time-to-value is the time it takes to click a link.</p>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-ico" aria-hidden="true">🎯</div>
+        <h3 class="why-title">Designed around real workflows</h3>
+        <p class="why-desc">Every feature solves a specific problem that HR practitioners face daily — not a problem a product manager assumed they had.</p>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-ico" aria-hidden="true">🌍</div>
+        <h3 class="why-title">Trusted across 4 countries</h3>
+        <p class="why-desc">265+ HR professionals across India, the US, UK, and Germany use these tools in their daily work — without any paid marketing.</p>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-ico" aria-hidden="true">🔓</div>
+        <h3 class="why-title">Free with no catch</h3>
+        <p class="why-desc">SkillMapper and TalentXRay are free — not freemium. No seat limits, no export paywalls, no "upgrade to see salary". Good HR data should not cost a budget approval.</p>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-ico" aria-hidden="true">🤖</div>
+        <h3 class="why-title">AI that understands HR context</h3>
+        <p class="why-desc">The HR AI suite is not generic AI with an HR label. It is built around real org dynamics — company stages, attrition patterns, hiring cadence, and business goals.</p>
+      </div>
+      <div class="why-item reveal">
+        <div class="why-ico" aria-hidden="true">📐</div>
+        <h3 class="why-title">Calibrated for startups</h3>
+        <p class="why-desc">Every tool is built for 10–200 person companies where one wrong hire or one preventable resignation has outsized impact on speed and culture.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SEO CONTENT STRIP ═══ -->
+<section class="seo-section" aria-labelledby="resources-heading">
+  <div class="wrap">
+    <div class="sec-label reveal">Helpful Reads</div>
+    <h2 class="sec-h reveal" id="resources-heading">Common questions<br/>we <em>actually answer.</em></h2>
+    <div class="seo-grid">
+      <div class="seo-card reveal">
+        <div class="seo-tag">Salary benchmarks</div>
+        <h3 class="seo-title">What is the market salary for a Senior Data Engineer in India in 2025?</h3>
+        <p class="seo-body">SkillMapper shows INR and USD salary bands for Senior Data Engineers across Junior (₹16–32L), Mid (₹32–60L), and Lead (₹60–98L) levels — sourced from Glassdoor, AmbitionBox, and Naukri data. Benchmarks vary by city: Bengaluru and Mumbai pay 20–40% above the ranges shown.</p>
+        <a href="https://skillmapper-hrfk.netlify.app" target="_blank" rel="noopener" class="seo-link">Check in SkillMapper →</a>
+      </div>
+      <div class="seo-card reveal">
+        <div class="seo-tag">Boolean search</div>
+        <h3 class="seo-title">How do I find ML Engineers on LinkedIn without a Recruiter licence?</h3>
+        <p class="seo-body">X-Ray search uses Google to index LinkedIn profiles. TalentXRay generates the exact Boolean string — role, skills, location — that you paste into Google. It surfaces profiles that standard LinkedIn search and most ATS tools miss entirely.</p>
+        <a href="https://talentxray.talentsradar.com" target="_blank" rel="noopener" class="seo-link">Try TalentXRay →</a>
+      </div>
+      <div class="seo-card reveal">
+        <div class="seo-tag">Job descriptions</div>
+        <h3 class="seo-title">What skills should I put in a job description for a Salesforce Developer?</h3>
+        <p class="seo-body">SkillMapper maps required skills (Apex, LWC, SOQL, Flow Builder) vs. nice-to-have skills (MuleSoft, Salesforce CPQ, Data Cloud) for Salesforce Developer roles — so you can write a JD that attracts the right applicants without over-specifying.</p>
+        <a href="https://skillmapper-hrfk.netlify.app" target="_blank" rel="noopener" class="seo-link">See the full profile →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ WAITLIST / CTA ═══ -->
+<section class="cta-section" id="waitlist" aria-labelledby="waitlist-heading">
+  <div class="cta-inner">
+    <div class="sec-label">Early Access</div>
+    <h2 class="sec-h" id="waitlist-heading">Be first in line<br/>for <em>HR AI.</em></h2>
+    <p>HR AI: Headcount and HR AI: Retention are in development. Early access members lock in founder pricing — permanently.</p>
+    <div class="waitlist-row">
+      <input type="email" class="w-input" id="wl-email" placeholder="you@company.com" aria-label="Your email address"/>
+      <button class="btn btn-teal btn-lg" onclick="waitlistSubmit()">Notify Me</button>
+    </div>
+    <p id="wl-conf" style="display:none;margin-top:1rem;font-size:0.82rem;color:var(--green);" role="status">✓ Done. We will reach out before launch.</p>
+    <div class="cta-tags" aria-label="What you get">
+      <span class="cta-tag"><span style="color:var(--teal);">✦</span> HR AI: Headcount</span>
+      <span class="cta-tag"><span style="color:var(--teal);">✦</span> HR AI: Retention</span>
+      <span class="cta-tag"><span style="color:var(--green);">✓</span> Founder pricing locked in</span>
+      <span class="cta-tag"><span style="color:var(--green);">✓</span> No payment needed now</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer role="contentinfo">
+  <div class="footer-inner">
+    <a href="#" class="footer-logo" aria-label="Talents Radar home">
+      <span class="logo-icon" aria-hidden="true" style="background:rgba(255,255,255,0.15);">◎</span>
+      Talents Radar
+    </a>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="#tools">Tools</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#why">About</a>
+      <a href="#waitlist">Early Access</a>
+      <a href="https://linkedin.com/company/talentsradar" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:hello@talentsradar.com">Contact</a>
+    </nav>
+    <span class="footer-copy">© 2025 Talents Radar. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+/* ═══ Scroll reveal ═══ */
+const io = new IntersectionObserver(entries => {
+  entries.forEach((e,i) => {
+    if(e.isIntersecting){
+      setTimeout(() => e.target.classList.add('up'), i * 60);
+      io.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.07});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ═══ Skill grid animation ═══ */
+const SKILLS_VIS = [
+  'Python','React','SQL','Figma','AWS',
+  'Node.js','TypeScript','Power BI',
+  'Tableau','Docker','LLMs','Kotlin',
+  'Salesforce','Scrum','SAP'
+];
+const grid = document.getElementById('skillGridVis');
+if(grid){
+  SKILLS_VIS.forEach((s,i) => {
+    const n = document.createElement('div');
+    n.className = 'sk' + (i===2||i===7||i===10?' hi': i===0||i===4||i===8?' lit':'');
+    n.textContent = s;
+    grid.appendChild(n);
+  });
+  // Animate highlight cycling
+  let cycle = [2,7,10];
+  setInterval(() => {
+    document.querySelectorAll('#skillGridVis .sk').forEach((el,i) => {
+      el.className = 'sk' + (cycle.includes(i)?' hi': [0,4,8].includes(i)?' lit':'');
+    });
+    cycle = cycle.map(c => (c + 3) % SKILLS_VIS.length);
+  }, 2200);
+}
+
+/* ═══ How it works tab ═══ */
+function switchHowTab(id, btn){
+  document.querySelectorAll('.how-tab').forEach(t => {
+    t.classList.remove('active');
+    t.setAttribute('aria-selected','false');
+  });
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected','true');
+  document.getElementById('tab-sm').style.display  = id==='sm'  ? 'grid' : 'none';
+  document.getElementById('tab-txr').style.display = id==='txr' ? 'grid' : 'none';
+}
+
+/* ═══ Waitlist ═══ */
+function waitlistSubmit(){
+  const email = document.getElementById('wl-email').value.trim();
+  if(!email || !email.includes('@')){
+    alert('Please enter a valid email address.');
+    return;
+  }
+  document.getElementById('wl-conf').style.display = 'block';
+  document.getElementById('wl-email').value = '';
+  // Wire to EmailJS: service_xi5bbol / template_kexeatw / fJHhZObCp
+  try {
+    if(typeof emailjs !== 'undefined'){
+      emailjs.send('service_xi5bbol','template_kexeatw',{to_email:email,tool_name:'Waitlist'});
+    }
+  } catch(e){}
+}
+
+/* ═══ Sal level interactivity ═══ */
+document.querySelectorAll('.sal-lv').forEach(btn => {
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('.sal-lv').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
