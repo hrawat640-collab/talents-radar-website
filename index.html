@@ -1541,13 +1541,23 @@ function sendContact(){
   const message = (document.getElementById('cm-message')?.value||'').trim();
   const errEl = document.getElementById('cm-err');
   const okEl  = document.getElementById('cm-success');
+  
   if(!email||!email.includes('@')){ errEl.textContent='Please enter a valid email.'; errEl.style.display='block'; return; }
   if(!message){ errEl.textContent='Please write a message.'; errEl.style.display='block'; return; }
   errEl.style.display='none';
+  
   if(typeof emailjs!=='undefined'){
-    emailjs.send('service_xi5bbol','template_kexeatw',{to_email:'hrawat640@gmail.com',from_email:email,subject:subject||'Contact from Talents Radar',message:message}).catch(()=>{});
+    // UPDATED: Service ID and Template ID
+    emailjs.send('service_urinxgz','template_dsfwnjc',{
+      to_email:'hrawat640@gmail.com',
+      from_email:email,
+      subject:subject||'Contact from Talents Radar',
+      message:message
+    }).catch((err)=> console.log("EmailJS Error:", err));
+  } else {
+    window.location.href = `mailto:hrawat640@gmail.com?subject=${encodeURIComponent(subject||'Message from Talents Radar')}&body=${encodeURIComponent('From: '+email+'\n\n'+message)}`;
   }
-  window.location.href = `mailto:hrawat640@gmail.com?subject=${encodeURIComponent(subject||'Message from Talents Radar')}&body=${encodeURIComponent('From: '+email+'\n\n'+message)}`;
+  
   okEl.style.display='block';
   setTimeout(() => closeContact(), 2800);
 }
@@ -1556,15 +1566,26 @@ function sendContact(){
 function submitWaitlist(){
   const email = (document.getElementById('wl-email')?.value||'').trim();
   if(!email||!email.includes('@')){ alert('Please enter a valid email address.'); return; }
+  
   const ok = document.getElementById('wl-success');
   if(ok) ok.style.display='block';
+  
   const inp = document.getElementById('wl-email');
   if(inp) inp.value='';
+  
   try{
     if(typeof emailjs!=='undefined'){
-      emailjs.send('service_xi5bbol','template_kexeatw',{to_email:'hrawat640@gmail.com',from_email:email,subject:'New waitlist signup',message:'Waitlist: '+email});
+      // UPDATED: Service ID and Template ID
+      emailjs.send('service_urinxgz','template_dsfwnjc',{
+        to_email:'hrawat640@gmail.com',
+        from_email:email,
+        subject:'New waitlist signup',
+        message:'Waitlist: '+email
+      });
     }
-  }catch(e){}
+  }catch(e){
+    console.log("EmailJS Error:", e);
+  }
 }
 </script>
 </body>
