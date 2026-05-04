@@ -1,0 +1,19 @@
+# Netlify reads this automatically when the repo is connected.
+#
+# If DevTools shows an error loading main.jsx / MIME type "application/octet-stream":
+# you're serving SOURCE index.html (script points at /src/main.jsx). Production MUST
+# serve dist/index.html where Vite rewrites the script to /assets/index-*.js only.
+# View Page Source on your live URL — if you see /src/main.jsx, publish dir or build is wrong.
+
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# SPA fallback — keeps React app loading for deep links / refreshes
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
