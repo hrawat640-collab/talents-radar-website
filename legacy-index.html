@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Talents Radar — Predictive AI for Revenue-Aligned Hiring and Retention</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+
+<!-- GA4 (shared property — same ID as SkillMapper, TalentXRay, HeadcountIQ) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-59QDBJYDPN"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-59QDBJYDPN', {
+    anonymize_ip: true,
+    send_page_view: true,
+  });
+</script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<style>
+:root {
+  --ink:      #16141f;
+  --ink2:     #514d63;
+  --ink3:     #9b98aa;
+  --paper:    #faf9fc;
+  --paper2:   #f3f1f8;
+  --paper3:   #ebe8f3;
+  --line:     #e2dff0;
+  --line2:    #cec9e0;
+  --violet:   #4f35c8;
+  --violet2:  #6b52d6;
+  --violet-l: #ede9fa;
+  --violet-m: #c4b9f0;
+  --violet-d: #3a26a0;
+  --green:    #15803d;
+  --green-l:  #f0fdf4;
+  --amber:    #92400e;
+  --amber-l:  #fffbeb;
+  --red:      #b91c1c;
+  --red-l:    #fef2f2;
+  --f:        'Sora', sans-serif;
+  --mono:     'DM Mono', monospace;
+  --r:        8px;
+  --shadow:   0 2px 16px rgba(79,53,200,0.08), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-lg:0 8px 40px rgba(79,53,200,0.12), 0 2px 8px rgba(0,0,0,0.06);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--f); font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+::-webkit-scrollbar{width:3px;}
+::-webkit-scrollbar-track{background:var(--paper2);}
+::-webkit-scrollbar-thumb{background:var(--line2);border-radius:2px;}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;height:60px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(20px,5vw,80px);
+  background:rgba(250,249,252,0.92);
+  border-bottom:1px solid var(--line);
+  backdrop-filter:blur(16px);
+  transition:box-shadow 0.2s;
+}
+nav.scrolled{box-shadow:0 2px 16px rgba(79,53,200,0.07);}
+
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  text-decoration:none;color:var(--ink);
+  font-size:15px;font-weight:600;letter-spacing:-0.01em;
+}
+.nav-links{display:flex;align-items:center;gap:2px;list-style:none;}
+.nav-links a{
+  font-size:13.5px;color:var(--ink2);text-decoration:none;
+  padding:6px 12px;border-radius:6px;font-weight:400;
+  transition:color 0.15s,background 0.15s;
+}
+.nav-links a:hover{color:var(--ink);background:var(--paper2);}
+.nav-cta-pill{
+  background:var(--violet)!important;color:#fff!important;
+  font-weight:500!important;margin-left:6px;
+  transition:background 0.15s,transform 0.15s!important;
+}
+.nav-cta-pill:hover{background:var(--violet2)!important;transform:translateY(-1px);}
+
+/* ── LOGO SVG ── */
+.logo-svg{width:32px;height:32px;flex-shrink:0;}
+
+/* ── BUTTONS ── */
+.btn{
+  font-family:var(--f);font-size:14px;font-weight:500;
+  padding:11px 24px;border-radius:var(--r);cursor:pointer;
+  text-decoration:none;display:inline-flex;align-items:center;gap:7px;
+  border:none;transition:all 0.18s;letter-spacing:-0.01em;
+}
+.btn:hover{transform:translateY(-2px);}
+.btn-violet{background:var(--violet);color:#fff;box-shadow:0 4px 16px rgba(79,53,200,0.25);}
+.btn-violet:hover{background:var(--violet2);box-shadow:0 6px 24px rgba(79,53,200,0.32);}
+.btn-outline{background:transparent;color:var(--ink2);border:1.5px solid var(--line2);}
+.btn-outline:hover{color:var(--ink);border-color:var(--violet-m);}
+.btn-ghost-violet{background:var(--violet-l);color:var(--violet);border:1.5px solid var(--violet-m);}
+.btn-ghost-violet:hover{background:#e0d9f7;border-color:var(--violet);}
+.btn-sm{font-size:13px;padding:8px 18px;}
+.btn-white{background:#fff;color:var(--ink);box-shadow:0 2px 12px rgba(0,0,0,0.12);}
+.btn-white:hover{box-shadow:0 4px 20px rgba(0,0,0,0.18);}
+
+/* ── HERO ── */
+.hero{
+  padding:60px 0 0;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+}
+.hero-inner{
+  flex:1;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:0;
+}
+.hero-left{
+  padding:80px clamp(20px,5vw,80px) 80px;
+  display:flex;flex-direction:column;justify-content:center;
+  border-right:1px solid var(--line);
+  position:relative;overflow:hidden;
+}
+.hero-left::before{
+  content:'';position:absolute;
+  top:-120px;left:-80px;
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(79,53,200,0.07) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-size:11px;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--violet);
+  background:var(--violet-l);border:1px solid var(--violet-m);
+  border-radius:100px;padding:5px 14px;margin-bottom:28px;
+  width:fit-content;
+  animation:fadeUp 0.5s ease both;
+}
+.eyebrow-dot{
+  width:6px;height:6px;border-radius:50%;background:var(--violet);
+  animation:pulse 2.4s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.8)}}
+
+.hero-h1{
+  font-size:clamp(38px,4.8vw,68px);
+  font-weight:700;line-height:1.06;letter-spacing:-0.04em;
+  color:var(--ink);margin-bottom:22px;
+  animation:fadeUp 0.5s 0.07s ease both;
+}
+.hero-h1 span{color:var(--violet);}
+.hero-sub{
+  font-size:17px;color:var(--ink2);font-weight:300;
+  line-height:1.72;max-width:500px;margin-bottom:36px;
+  animation:fadeUp 0.5s 0.14s ease both;
+}
+.hero-actions{
+  display:flex;gap:10px;flex-wrap:wrap;
+  animation:fadeUp 0.5s 0.2s ease both;
+}
+.hero-trust{
+  display:flex;align-items:center;gap:24px;flex-wrap:wrap;
+  margin-top:48px;padding-top:32px;border-top:1px solid var(--line);
+  animation:fadeUp 0.5s 0.28s ease both;
+}
+.trust-item{display:flex;flex-direction:column;gap:2px;}
+.trust-num{
+  font-family:var(--mono);font-size:22px;font-weight:500;
+  color:var(--ink);line-height:1;letter-spacing:-0.02em;
+}
+.trust-lbl{font-size:12px;color:var(--ink3);line-height:1.4;}
+.trust-sep{width:1px;height:36px;background:var(--line);}
+
+/* Hero right — connected tools diagram */
+.hero-right{
+  padding:80px clamp(20px,5vw,80px) 80px;
+  display:flex;flex-direction:column;justify-content:center;
+  gap:0;background:var(--paper2);
+  position:relative;overflow:hidden;
+}
+.hero-right::before{
+  content:'';position:absolute;
+  bottom:-100px;right:-100px;
+  width:400px;height:400px;
+  background:radial-gradient(circle,rgba(79,53,200,0.06) 0%,transparent 65%);
+  pointer-events:none;
+}
+.hero-right-label{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:28px;
+  animation:fadeUp 0.5s 0.1s ease both;
+}
+.connected-tools{
+  display:flex;flex-direction:column;gap:0;position:relative;
+  animation:fadeUp 0.5s 0.18s ease both;
+}
+/* Vertical spine */
+.connected-tools::before{
+  content:'';
+  position:absolute;left:23px;top:36px;bottom:36px;
+  width:1px;background:linear-gradient(to bottom,var(--violet-m),var(--line2));
+  z-index:0;
+}
+.ct-item{
+  display:grid;grid-template-columns:48px 1fr;gap:0;
+  align-items:stretch;position:relative;z-index:1;
+}
+.ct-spine{
+  display:flex;flex-direction:column;align-items:center;
+  padding:14px 0;
+}
+.ct-node{
+  width:28px;height:28px;border-radius:50%;
+  border:2px solid var(--line2);background:var(--paper2);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:10px;font-weight:500;
+  color:var(--ink3);transition:all 0.25s;flex-shrink:0;
+  position:relative;z-index:2;
+}
+.ct-item.active .ct-node{
+  border-color:var(--violet);background:var(--violet);color:#fff;
+  box-shadow:0 0 0 4px var(--violet-l);
+}
+.ct-card{
+  margin:8px 0 8px 16px;
+  background:#fff;border:1px solid var(--line);border-radius:var(--r);
+  padding:16px 18px;cursor:pointer;
+  transition:border-color 0.2s,box-shadow 0.2s,background 0.2s;
+}
+.ct-item:hover .ct-card,.ct-item.active .ct-card{
+  border-color:var(--violet-m);
+  box-shadow:0 2px 12px rgba(79,53,200,0.1);
+}
+.ct-item.active .ct-card{background:var(--violet-l);}
+.ct-card-top{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;}
+.ct-card-name{font-size:14px;font-weight:600;color:var(--ink);letter-spacing:-0.01em;}
+.ct-card-tag{
+  font-family:var(--mono);font-size:10px;padding:2px 8px;
+  border-radius:4px;letter-spacing:0.04em;
+}
+.tag-live{background:var(--green-l);color:var(--green);border:1px solid #bbf7d0;}
+.tag-soon{background:var(--amber-l);color:var(--amber);border:1px solid #fde68a;}
+.ct-card-desc{font-size:12.5px;color:var(--ink2);font-weight:300;line-height:1.55;}
+.ct-card-link{
+  display:inline-flex;align-items:center;gap:4px;margin-top:8px;
+  font-size:12px;font-weight:500;color:var(--violet);
+  text-decoration:none;transition:gap 0.15s;
+}
+.ct-card-link:hover{gap:7px;}
+.ct-item.soon .ct-card-link{color:var(--amber);}
+
+/* ── SECTION WRAPPER ── */
+.section{
+  padding:88px clamp(20px,5vw,80px);
+  border-top:1px solid var(--line);
+}
+.section-label{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--ink3);
+  display:flex;align-items:center;gap:10px;margin-bottom:16px;
+}
+.label-line{width:32px;height:1px;background:var(--line2);}
+.section-h2{
+  font-size:clamp(28px,3.2vw,46px);font-weight:700;
+  line-height:1.1;letter-spacing:-0.03em;color:var(--ink);
+  margin-bottom:16px;
+}
+.section-h2 span{color:var(--violet);}
+.section-body{
+  font-size:15.5px;color:var(--ink2);font-weight:300;
+  line-height:1.75;max-width:560px;
+}
+
+/* ── PROBLEM ── */
+.problem-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:var(--r);overflow:hidden;margin-top:52px;
+}
+.prob-card{
+  background:var(--paper);padding:32px 28px;
+  transition:background 0.2s;
+}
+.prob-card:hover{background:var(--paper2);}
+.prob-num{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.08em;
+  color:var(--ink3);margin-bottom:16px;
+}
+.prob-stat{
+  font-family:var(--mono);font-size:42px;font-weight:500;
+  color:var(--violet);letter-spacing:-0.04em;line-height:1;
+  margin-bottom:8px;
+}
+.prob-card h3{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:8px;line-height:1.3;letter-spacing:-0.01em;}
+.prob-card p{font-size:13.5px;color:var(--ink2);line-height:1.65;font-weight:300;}
+
+/* ── TOOLS ENGINE ── */
+.tools-section{border-top:1px solid var(--line);}
+.tools-header{
+  padding:88px clamp(20px,5vw,80px) 56px;
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:end;
+}
+.tools-steps{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  border-top:1px solid var(--line);
+  position:relative;
+}
+/* connector rail */
+.tools-steps::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--violet),var(--violet2),var(--violet-m));
+  z-index:1;
+}
+.tool-step-card{
+  padding:40px clamp(16px,3vw,36px) 40px;
+  border-right:1px solid var(--line);
+  display:flex;flex-direction:column;gap:16px;
+  transition:background 0.2s;
+  position:relative;
+}
+.tool-step-card:last-child{border-right:none;}
+.tool-step-card:hover{background:var(--paper2);}
+/* active indicator dot on top rail */
+.tool-step-card::before{
+  content:'';
+  position:absolute;top:-5px;left:clamp(16px,3vw,36px);
+  width:10px;height:10px;border-radius:50%;
+  background:var(--violet);border:2px solid var(--paper);
+  z-index:2;
+}
+.tool-step-num{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.1em;
+  color:var(--ink3);text-transform:uppercase;
+}
+.tool-step-mark{
+  width:44px;height:44px;border-radius:10px;
+  background:var(--violet-l);border:1px solid var(--violet-m);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:13px;font-weight:500;
+  color:var(--violet);
+}
+.tool-step-card.soon .tool-step-mark{
+  background:var(--amber-l);border-color:#fde68a;color:var(--amber);
+}
+.tool-step-name{font-size:20px;font-weight:700;color:var(--ink);letter-spacing:-0.02em;line-height:1.1;}
+.tool-step-tagline{font-size:13.5px;color:var(--ink2);font-weight:300;line-height:1.6;margin-bottom:12px;}
+.tool-step-desc{
+  font-size:14px;line-height:1.65;color:var(--ink2);font-weight:300;
+  margin-bottom:16px;letter-spacing:-0.01em;
+}
+.tool-step-facts-box{
+  display:flex;flex-direction:column;gap:8px;margin-bottom:8px;padding:14px 16px;
+  background:var(--paper);border:1px solid var(--line);border-radius:var(--r);
+}
+.tool-step-card.soon .tool-step-facts-box{background:rgba(255,255,255,0.72);}
+.tool-step-fact-row{
+  display:flex;gap:10px;align-items:flex-start;
+  font-size:12.5px;line-height:1.5;color:var(--ink2);font-weight:300;
+}
+.tool-step-fact-num{
+  font-family:var(--mono);font-size:10px;font-weight:600;
+  color:var(--violet);letter-spacing:0.05em;margin-top:2px;flex-shrink:0;min-width:22px;
+}
+.tool-step-card.soon .tool-step-fact-num{color:var(--amber);}
+.tool-step-foot{
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:14px;padding-top:16px;border-top:1px solid var(--line);margin-top:auto;
+}
+.tool-step-tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end;}
+.tool-step-tag-chip{
+  font-family:var(--mono);font-size:9px;font-weight:500;color:var(--ink3);
+  letter-spacing:0.06em;text-transform:uppercase;padding:3px 7px;border-radius:4px;
+  background:var(--paper2);border:1px solid var(--line);
+}
+.tool-step-cta-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.tool-step-cta{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:13px;font-weight:600;color:var(--violet);
+  text-decoration:none;margin-top:4px;transition:gap 0.15s;
+  letter-spacing:-0.01em;
+}
+.tool-step-cta:hover{gap:8px;}
+.tool-step-card.soon .tool-step-cta{color:var(--amber);}
+.tool-step-badge{
+  font-family:var(--mono);font-size:10px;padding:3px 8px;
+  border-radius:4px;width:fit-content;
+}
+
+/* ── Tool step visuals (animations from legacy homepage — adapted to theme) ── */
+.tool-step-visual{
+  margin-top:6px;padding:14px;border:1px solid var(--line);border-radius:var(--r);
+  background:var(--paper2);position:relative;
+}
+.tool-step-card.soon .tool-step-visual{background:rgba(255,251,235,0.55);}
+.tsv-skill-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+.tsv-chip{
+  font-size:10px;font-weight:500;padding:4px 9px;border-radius:6px;font-family:var(--mono);
+  border:1px solid var(--line);background:var(--paper);color:var(--ink3);transition:all .28s ease;
+}
+.tsv-chip.lit{border-color:var(--violet-m);color:var(--violet);background:var(--violet-l);}
+.tsv-chip.hi{border-color:var(--violet);color:var(--violet-d);background:var(--violet-l);font-weight:600;
+  box-shadow:0 0 0 2px rgba(79,53,200,0.1);}
+.tsv-sal-wrap{background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px;}
+.tsv-sal-top{margin-bottom:10px;}
+.tsv-sal-role{font-size:12px;color:var(--ink);font-weight:600;}
+.tsv-sal-dept{font-size:11px;color:var(--ink3);margin-top:2px;}
+.tsv-sal-levels{display:flex;gap:5px;margin-bottom:10px;flex-wrap:wrap;}
+.tsv-sal-lv{
+  font-size:10px;font-weight:600;padding:4px 9px;border-radius:5px;border:1px solid var(--line);
+  color:var(--ink3);background:var(--paper2);cursor:pointer;font-family:var(--f);transition:all .15s;
+}
+.tsv-sal-lv.active{border-color:var(--violet-m);color:var(--violet);background:var(--violet-l);}
+.tsv-sal-track-row{display:flex;align-items:center;gap:10px;}
+.tsv-sal-track{flex:1;height:5px;background:var(--paper3);border-radius:3px;position:relative;}
+.tsv-sal-fill{
+  height:100%;border-radius:3px;
+  background:linear-gradient(90deg,var(--violet),rgba(79,53,200,0.35));width:0;
+  transition:width .45s cubic-bezier(0.22,1,0.36,1);
+}
+.tsv-sal-marker{
+  position:absolute;top:-5px;width:13px;height:13px;margin-left:-6px;border-radius:50%;
+  background:var(--violet);border:2px solid var(--paper);box-shadow:0 0 8px rgba(79,53,200,0.35);
+  transition:left .45s cubic-bezier(0.22,1,0.36,1);left:0;
+}
+.tsv-sal-val{font-size:11px;font-weight:600;color:var(--ink);white-space:nowrap;min-width:88px;text-align:right;}
+.tsv-code{
+  background:var(--ink);border-radius:8px;padding:12px;font-family:var(--mono);font-size:10.5px;line-height:1.65;
+  margin-bottom:10px;color:#d1d5db;border:1px solid rgba(255,255,255,0.06);position:relative;
+}
+.tsv-code .kw{color:#5eead4;}
+.tsv-code .op{color:#93c5fd;}
+.tsv-code .site{color:#86efac;}
+.tsv-code .str{color:#fca5a5;}
+.tsv-code.tsv-code-caret::after{
+  content:'█';font-size:10px;color:var(--violet-m);animation:tsvCaret .9s step-end infinite;margin-left:2px;
+}
+@keyframes tsvCaret{0%,100%{opacity:1}50%{opacity:0}}
+.tsv-txr-result{
+  display:flex;align-items:center;gap:8px;background:var(--violet-l);border:1px solid var(--violet-m);
+  border-radius:6px;padding:8px 11px;font-size:11px;color:var(--violet);font-weight:500;
+}
+.tsv-ai-card{
+  background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:12px;
+  display:flex;flex-direction:column;gap:9px;
+}
+.tsv-ai-kv{display:flex;justify-content:space-between;gap:10px;}
+.tsv-ai-k{font-size:11px;color:var(--ink3);}
+.tsv-ai-v{font-size:11px;font-weight:600;color:var(--ink);}
+.tsv-ai-hr{height:1px;background:var(--line);}
+.tsv-ai-hint{font-size:10px;color:var(--ink3);}
+.tsv-ai-bars{display:flex;flex-direction:column;gap:8px;}
+.tsv-ai-bar-row{display:flex;align-items:center;gap:8px;}
+.tsv-ai-bar-lbl{font-size:10px;color:var(--ink3);min-width:84px;}
+.tsv-ai-bar-track{flex:1;height:4px;background:var(--paper3);border-radius:3px;overflow:hidden;}
+.tsv-ai-bar-fill{height:100%;border-radius:3px;width:0;transition:width .65s cubic-bezier(0.22,1,0.36,1);}
+.tsv-ai-bar-val{font-size:10px;font-weight:600;min-width:40px;text-align:right;}
+.tsv-ai-note{
+  font-size:11px;color:var(--amber);line-height:1.55;background:var(--amber-l);padding:8px 10px;border-radius:6px;border:1px solid #fde68a;
+}
+@media (prefers-reduced-motion:reduce){
+  .tsv-chip{transition:none;}
+  .tsv-sal-fill,.tsv-sal-marker{transition:none;}
+  .tsv-ai-bar-fill{transition:none!important;}
+  .tsv-code.tsv-code-caret::after{animation:none;opacity:.5;}
+}
+
+/* ── ROI STRIP ── */
+.roi-strip{
+  background:var(--paper);
+  padding:72px clamp(20px,5vw,80px);
+  border-top:1px solid var(--line);
+}
+.roi-strip-inner{
+  display:grid;grid-template-columns:1fr 3fr;gap:80px;align-items:center;
+}
+.roi-strip-left h2{
+  font-size:clamp(26px,3vw,40px);font-weight:700;
+  line-height:1.12;letter-spacing:-0.03em;color:var(--ink);margin-bottom:14px;
+}
+.roi-strip-left h2 span{color:var(--violet);}
+.roi-strip-left>p{font-size:14px;color:var(--ink2);font-weight:300;line-height:1.7;}
+.roi-numbers{display:grid;grid-template-columns:repeat(4,1fr);gap:0;}
+.roi-num-item{
+  padding:28px 24px;border-right:1px solid var(--line);
+  display:flex;flex-direction:column;gap:8px;
+}
+.roi-num-item:last-child{border-right:none;}
+.roi-num-val{
+  font-family:var(--mono);font-size:38px;font-weight:500;
+  color:var(--ink);letter-spacing:-0.04em;line-height:1;
+}
+.roi-num-val.accent{color:var(--violet);}
+.roi-num-label{font-size:13px;color:var(--ink2);font-weight:300;line-height:1.5;}
+
+/* ── ATTRITION EARLY ACCESS ── */
+.early-section{
+  background:var(--paper2);
+  padding:0;border-top:1px solid var(--line);
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:560px;
+}
+.early-left{
+  padding:72px clamp(20px,5vw,80px);
+  display:flex;flex-direction:column;justify-content:center;gap:22px;
+  border-right:1px solid var(--line);
+}
+.early-tag{
+  display:inline-flex;align-items:center;gap:7px;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:0.08em;
+  text-transform:uppercase;color:var(--amber);
+  background:var(--amber-l);border:1px solid #fde68a;
+  border-radius:100px;padding:4px 12px;width:fit-content;
+}
+.early-h2{
+  font-size:clamp(28px,3vw,44px);font-weight:700;
+  line-height:1.1;letter-spacing:-0.035em;color:var(--ink);
+}
+.early-h2 span{color:var(--violet);}
+.early-body{font-size:15px;color:var(--ink2);font-weight:300;line-height:1.75;max-width:480px;}
+.early-math{
+  display:grid;grid-template-columns:1fr 1fr;gap:14px;
+  margin-top:8px;
+}
+.math-card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r);
+  padding:16px 18px;
+}
+.math-val{font-family:var(--mono);font-size:28px;font-weight:500;color:var(--violet);letter-spacing:-0.03em;line-height:1;margin-bottom:4px;}
+.math-val.red{color:var(--red);}
+.math-lbl{font-size:12px;color:var(--ink3);line-height:1.4;}
+
+/* Early access form */
+.early-right{
+  padding:72px clamp(20px,5vw,80px);
+  display:flex;flex-direction:column;justify-content:center;gap:0;
+}
+.ea-form-wrap{
+  background:#fff;border:1px solid var(--line);border-radius:12px;
+  padding:32px;box-shadow:var(--shadow);
+  max-width:420px;
+}
+.ea-form-wrap h3{font-size:18px;font-weight:700;color:var(--ink);margin-bottom:6px;letter-spacing:-0.02em;}
+.ea-form-wrap p{font-size:13.5px;color:var(--ink2);font-weight:300;margin-bottom:22px;line-height:1.6;}
+.ea-form{display:flex;flex-direction:column;gap:10px;}
+.ea-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.ea-input{
+  background:var(--paper2);border:1.5px solid var(--line);border-radius:6px;
+  padding:10px 14px;font-family:var(--f);font-size:13.5px;
+  color:var(--ink);outline:none;width:100%;transition:border-color 0.15s;
+}
+.ea-input:focus{border-color:var(--violet);}
+.ea-input::placeholder{color:var(--ink3);}
+.ea-input.err{border-color:var(--red);}
+.ea-submit{
+  background:var(--violet);color:#fff;border:none;
+  padding:11px;border-radius:6px;font-family:var(--f);
+  font-size:14px;font-weight:600;cursor:pointer;
+  transition:background 0.18s,transform 0.18s;letter-spacing:-0.01em;
+  margin-top:4px;
+}
+.ea-submit:hover{background:var(--violet2);transform:translateY(-1px);}
+.ea-note{font-size:11.5px;color:var(--ink3);font-family:var(--mono);margin-top:10px;letter-spacing:0.02em;}
+.ea-success{
+  display:flex;flex-direction:column;align-items:center;gap:14px;
+  padding:16px 0;text-align:center;
+}
+.ea-success-icon{
+  width:48px;height:48px;border-radius:50%;
+  background:var(--green-l);border:1px solid #bbf7d0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;color:var(--green);
+}
+.ea-success h4{font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-0.01em;}
+.ea-success p{font-size:13px;color:var(--ink2);font-weight:300;line-height:1.6;max-width:260px;}
+
+/* ── DEMO MODAL ── */
+.modal-bg{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(22,20,31,0.55);backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;padding:24px;
+  opacity:0;pointer-events:none;transition:opacity 0.22s;
+}
+.modal-bg.open{opacity:1;pointer-events:all;}
+.modal-card{
+  background:var(--paper);border:1px solid var(--line);border-radius:12px;
+  padding:36px;width:100%;max-width:440px;
+  box-shadow:var(--shadow-lg);
+  transform:translateY(16px);transition:transform 0.22s;
+}
+.modal-bg.open .modal-card{transform:translateY(0);}
+.modal-card h3{font-size:20px;font-weight:700;color:var(--ink);margin-bottom:6px;letter-spacing:-0.02em;}
+.modal-card>p{font-size:14px;color:var(--ink2);font-weight:300;margin-bottom:24px;}
+.m-form{display:flex;flex-direction:column;gap:10px;}
+.m-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.m-input{
+  background:var(--paper2);border:1.5px solid var(--line2);border-radius:6px;
+  padding:10px 14px;font-family:var(--f);font-size:13.5px;
+  color:var(--ink);outline:none;width:100%;transition:border-color 0.15s;
+}
+.m-input:focus{border-color:var(--violet);}
+.m-input::placeholder{color:var(--ink3);}
+.m-input.err{border-color:var(--red);}
+textarea.m-input{
+  min-height:104px;resize:vertical;line-height:1.5;padding-top:10px;padding-bottom:10px;
+}
+.m-footer{display:flex;align-items:center;justify-content:space-between;margin-top:6px;}
+.m-cancel{background:none;border:none;color:var(--ink3);font-size:13px;cursor:pointer;font-family:var(--f);}
+.m-cancel:hover{color:var(--ink2);}
+.m-success{text-align:center;padding:8px 0;}
+.m-success-icon{font-size:40px;margin-bottom:14px;}
+.m-success h3{text-align:center;margin-bottom:8px;}
+.m-success p{text-align:center;font-size:14px;color:var(--ink2);font-weight:300;margin-bottom:22px;}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--ink);
+  padding:56px clamp(20px,5vw,80px) 36px;
+  border-top:1px solid var(--line);
+}
+.footer-top{
+  display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;
+  gap:56px;margin-bottom:48px;
+}
+.footer-brand{display:flex;flex-direction:column;gap:12px;}
+.footer-logo{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:#fff;letter-spacing:-0.01em;}
+.footer-tagline{font-size:13px;color:rgba(255,255,255,0.35);font-weight:300;line-height:1.65;max-width:220px;}
+.footer-col h4{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.1em;
+  text-transform:uppercase;color:rgba(255,255,255,0.25);margin-bottom:14px;
+}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.footer-col a{font-size:13.5px;color:rgba(255,255,255,0.5);text-decoration:none;transition:color 0.15s;font-weight:300;}
+.footer-col a:hover{color:rgba(255,255,255,0.9);}
+.footer-bottom{
+  border-top:1px solid rgba(255,255,255,0.08);padding-top:22px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+}
+.footer-copy{font-size:11.5px;color:rgba(255,255,255,0.22);font-family:var(--mono);}
+
+/* ── REVEAL ── */
+.rev{opacity:0;transform:translateY(22px);transition:opacity 0.55s ease,transform 0.55s ease;}
+.rev.in{opacity:1;transform:none;}
+.d1{transition-delay:0.09s;}.d2{transition-delay:0.18s;}.d3{transition-delay:0.27s;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-left{border-right:none;border-bottom:1px solid var(--line);}
+  .tools-header{grid-template-columns:1fr;gap:32px;}
+  .tools-steps{grid-template-columns:1fr 1fr;}
+  .roi-strip-inner{grid-template-columns:1fr;gap:40px;}
+  .roi-numbers{grid-template-columns:1fr 1fr;}
+  .early-section{grid-template-columns:1fr;}
+  .early-left{border-right:none;border-bottom:1px solid var(--line);}
+  .footer-top{grid-template-columns:1fr 1fr;gap:36px;}
+}
+@media(max-width:768px){
+  .problem-grid{grid-template-columns:1fr;}
+  .tools-steps{grid-template-columns:1fr;}
+  .roi-numbers{grid-template-columns:1fr 1fr;}
+  .nav-links{display:none;}
+  .footer-top{grid-template-columns:1fr;}
+  .early-math{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a href="https://talentsradar.com" class="nav-logo">
+    <svg class="logo-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="16" cy="16" r="14" stroke="#4f35c8" stroke-width="1.2" opacity="0.3"/>
+      <circle cx="16" cy="16" r="9.5" stroke="#4f35c8" stroke-width="1.4" opacity="0.55"/>
+      <circle cx="16" cy="16" r="5" stroke="#4f35c8" stroke-width="1.6" opacity="0.8"/>
+      <circle cx="16" cy="16" r="2.2" fill="#4f35c8"/>
+      <line x1="16" y1="2" x2="16" y2="7" stroke="#4f35c8" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+      <line x1="26.9" y1="9" x2="22.6" y2="11.5" stroke="#4f35c8" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+    </svg>
+    Talents Radar
+  </a>
+  <ul class="nav-links">
+    <li><a href="#tools">Platform</a></li>
+    <li><a href="#attrition">AttritionAI</a></li>
+    <li><a href="https://headcountiq.talentsradar.com" target="_blank" rel="noopener">HeadcountIQ ↗</a></li>
+    <li><a href="#" id="nav-demo-btn" class="nav-cta-pill">Book a Demo</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <!-- LEFT -->
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        Talent Intelligence Platform
+      </div>
+      <h1 class="hero-h1">
+        Revenue-aligned<br>hiring. <span>Finally.</span>
+      </h1>
+      <p class="hero-sub">
+        Predictive AI for revenue-aligned hiring and retention. Four connected tools that translate your growth targets into headcount execution — and predict attrition before the resignation lands.
+      </p>
+      <div class="hero-actions">
+        <a href="https://headcountiq.talentsradar.com" target="_blank" rel="noopener" class="btn btn-violet">Try HeadcountIQ free ↗</a>
+        <a href="#" id="hero-demo-btn" class="btn btn-outline">Book a Demo</a>
+      </div>
+      <div class="hero-trust">
+        <div class="trust-item">
+          <span class="trust-num">600+</span>
+          <span class="trust-lbl">Active users<br>US &amp; India</span>
+        </div>
+        <div class="trust-sep"></div>
+        <div class="trust-item">
+          <span class="trust-num">4</span>
+          <span class="trust-lbl">Connected<br>tools</span>
+        </div>
+        <div class="trust-sep"></div>
+        <div class="trust-item">
+          <span class="trust-num">1,394+</span>
+          <span class="trust-lbl">Skills<br>mapped</span>
+        </div>
+        <div class="trust-sep"></div>
+        <div class="trust-item">
+          <span class="trust-num">$0</span>
+          <span class="trust-lbl">Cost to<br>start</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT — Connected tools diagram -->
+    <div class="hero-right">
+      <div class="hero-right-label">The connected engine — four tools, one workflow</div>
+      <div id="connected-tools-root"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="section" id="problem">
+  <div class="section-label rev">
+    <span class="label-line"></span>
+    The Disconnect
+  </div>
+  <h2 class="section-h2 rev d1">
+    Three expensive problems.<br><span>One platform fixes all of them.</span>
+  </h2>
+  <div class="problem-grid rev d2">
+    <div class="prob-card">
+      <div class="prob-num">01 — Planning</div>
+      <div class="prob-stat">$0</div>
+      <h3>Value of headcount not tied to revenue</h3>
+      <p>When revenue targets change, headcount plans don't. Every hire approved against a stale model burns runway without moving the business forward.</p>
+    </div>
+    <div class="prob-card">
+      <div class="prob-num">02 — Sourcing</div>
+      <div class="prob-stat">6mo</div>
+      <h3>Lag between market data and offer letters</h3>
+      <p>Salary benchmarks age out faster than you use them. You lose candidates to better offers — or overpay. Neither outcome is defensible at a board meeting.</p>
+    </div>
+    <div class="prob-card">
+      <div class="prob-num">03 — Retention</div>
+      <div class="prob-stat">1.5×</div>
+      <h3>Cost to replace one employee vs. their salary</h3>
+      <p>By the time someone hands in notice, you've already lost them. The early signals were in the data — survey scores, appraisal trends, leave patterns. You just never connected them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TOOLS ENGINE -->
+<section class="tools-section" id="tools">
+  <div class="tools-header">
+    <div class="rev">
+      <div class="section-label">
+        <span class="label-line"></span>
+        The Platform
+      </div>
+      <h2 class="section-h2">
+        Four tools.<br><span>One engine.</span>
+      </h2>
+    </div>
+    <div class="rev d1">
+      <p class="section-body">Each tool solves one problem. Together they form a continuous loop — revenue targets become headcount plans, plans become benchmarked roles, roles become sourced candidates, candidates become retained employees. Every step feeds the next.</p>
+
+    </div>
+  </div>
+  <div class="tools-steps rev d2" id="tools-steps-root">
+    <!-- React renders here -->
+  </div>
+</section>
+
+<!-- ROI STRIP -->
+<div class="roi-strip" id="roi">
+  <div class="roi-strip-inner">
+    <div class="roi-strip-left rev">
+      <h2>
+        Math you<br><span>need.</span>
+      </h2>
+      <p>Every number behind the platform's financial case.</p>
+    </div>
+    <div class="roi-numbers rev d1">
+      <div class="roi-num-item">
+        <div class="roi-num-val accent">1.5×</div>
+        <div class="roi-num-label">Average cost to replace one employee vs. their annual salary</div>
+      </div>
+      <div class="roi-num-item">
+        <div class="roi-num-val accent">6×</div>
+        <div class="roi-num-label">Cheaper to retain with early intervention than to replace</div>
+      </div>
+      <div class="roi-num-item">
+        <div class="roi-num-val">Day 1</div>
+        <div class="roi-num-label">A defensible headcount plan from the moment revenue target is entered</div>
+      </div>
+      <div class="roi-num-item">
+        <div class="roi-num-val">600+</div>
+        <div class="roi-num-label">Active users across the US and India using the platform today</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ATTRITION AI EARLY ACCESS -->
+<section class="early-section" id="attrition">
+  <div class="early-left rev">
+    <span class="early-tag">
+      <span style="width:6px;height:6px;border-radius:50%;background:var(--amber);display:inline-block;"></span>
+      AttritionAI · Early Access
+    </span>
+    <h2 class="early-h2">
+      Predict who's leaving<br>before they <span>resign.</span>
+    </h2>
+    <p class="early-body">
+      AttritionAI connects siloed signals — engagement surveys, appraisal scores, leave patterns — into a single risk score per employee, ranked by the financial cost of their departure.
+    </p>
+    <div class="early-math">
+      <div class="math-card">
+        <div class="math-val red">1.5×</div>
+        <div class="math-lbl">Salary cost to replace one employee on exit</div>
+      </div>
+      <div class="math-card">
+        <div class="math-val">6×</div>
+        <div class="math-lbl">Cheaper to act on early signal than replace</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;">
+      <a href="#" id="ea-demo-btn" class="btn btn-violet btn-sm">Book a Demo</a>
+      <a href="#attrition" class="btn btn-ghost-violet btn-sm">Join early access</a>
+    </div>
+  </div>
+  <div class="early-right rev d1">
+    <div class="ea-form-wrap">
+      <h3>Request early access</h3>
+      <p>AttritionAI is launching soon. Lock in founder pricing — no payment required now.</p>
+      <div id="ea-form-root"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo">
+        <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="16" cy="16" r="14" stroke="rgba(255,255,255,0.2)" stroke-width="1.2"/>
+          <circle cx="16" cy="16" r="9.5" stroke="rgba(255,255,255,0.35)" stroke-width="1.4"/>
+          <circle cx="16" cy="16" r="5" stroke="rgba(255,255,255,0.55)" stroke-width="1.6"/>
+          <circle cx="16" cy="16" r="2.2" fill="#fff"/>
+        </svg>
+        Talents Radar
+      </div>
+      <p class="footer-tagline">The connected talent intelligence platform for growing companies. All tools free.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Tools</h4>
+      <ul>
+        <li><a href="https://skillmapper.talentsradar.com" target="_blank" rel="noopener">SkillMapper ↗</a></li>
+        <li><a href="https://talentxray.talentsradar.com" target="_blank" rel="noopener">TalentXRay ↗</a></li>
+        <li><a href="https://headcountiq.talentsradar.com" target="_blank" rel="noopener">HeadcountIQ ↗</a></li>
+        <li><a href="#attrition">AttritionAI (Early Access)</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <ul>
+        <li><a href="#tools">How it works</a></li>
+        <li><a href="#problem">The problem</a></li>
+        <li><a href="#attrition">Early access</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#" id="footer-contact-btn">Contact</a></li>
+        <li><a href="mailto:contactus@talentsradar.com?subject=Enterprise%20inquiry">Enterprise</a></li>
+        <li><a href="https://headcountiq.talentsradar.com" target="_blank" rel="noopener">Privacy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span class="footer-copy">© 2026 TALENTS RADAR · ALL RIGHTS RESERVED</span>
+    <span class="footer-copy">600+ users · US &amp; India · All tools free</span>
+  </div>
+</footer>
+
+<!-- DEMO MODAL -->
+<div class="modal-bg" id="demo-modal">
+  <div class="modal-card" id="modal-card"><!-- React --></div>
+</div>
+
+<!-- CONTACT MODAL -->
+<div class="modal-bg" id="contact-modal">
+  <div class="modal-card" id="contact-modal-card"><!-- React --></div>
+</div>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel">
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accentColor": "#4f35c8",
+  "heroCTA": "Book a Demo"
+}/*EDITMODE-END*/;
+
+const TCtx = React.createContext({ tweaks: TWEAK_DEFAULTS, setTweak: ()=>{} });
+function TProvider({ children }) {
+  const [tweaks, set] = React.useState(TWEAK_DEFAULTS);
+  const setTweak = React.useCallback((k,v)=>{
+    set(p=>{ const n=typeof k==='object'?{...p,...k}:{...p,[k]:v}; window.parent.postMessage({type:'__edit_mode_set_keys',edits:n},'*'); return n; });
+  },[]);
+  return <TCtx.Provider value={{tweaks,setTweak}}>{children}</TCtx.Provider>;
+}
+function useT(){ return React.useContext(TCtx); }
+
+/* ── Supabase (publishable / anon — override with window.SUPABASE_ANON_KEY if needed) ── */
+const SUPABASE_URL = 'https://tqymwtcdsqoqpvbggpnk.supabase.co';
+const SUPABASE_ANON_KEY =
+  (typeof window !== 'undefined' && window.SUPABASE_ANON_KEY) ||
+  'sb_publishable_ZwdxLA2twuvjkBug6JPxxA_zlWzaVN2';
+
+async function insertWebsiteFormSubmission(row) {
+  const key = typeof SUPABASE_ANON_KEY === 'string' ? SUPABASE_ANON_KEY.trim() : '';
+  if (!key) {
+    console.warn('[Talents Radar] SUPABASE_ANON_KEY is missing.');
+    return { ok: false, status: 0 };
+  }
+  const res = await fetch(`${SUPABASE_URL}/rest/v1/website_form_submissions`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      apikey: key,
+      Authorization: `Bearer ${key}`,
+      Prefer: 'return=minimal',
+    },
+    body: JSON.stringify(row),
+  });
+  return { ok: res.ok, status: res.status };
+}
+
+function leadMetadata() {
+  try {
+    return {
+      path: window.location.pathname || '/',
+      referrer: document.referrer || null,
+    };
+  } catch (_) {
+    return {};
+  }
+}
+
+/* ── Connected Tools (hero right) ── */
+const CT_TOOLS = [
+  { num:'01', mark:'SM', name:'SkillMapper', desc:'Salary benchmarks and skill maps for 200+ roles. Know what a role costs before you post it.', link:'https://skillmapper.talentsradar.com', linkTxt:'Open SkillMapper →', status:'live' },
+  { num:'02', mark:'TX', name:'TalentXRay', desc:'Automated sourcing from required skills across LinkedIn, GitHub and Behance — reach passive candidates without a Recruiter licence.', link:'https://talentxray.talentsradar.com', linkTxt:'Open TalentXRay →', status:'live' },
+  { num:'03', mark:'HQ', name:'HeadcountIQ', desc:'Revenue target → defensible hiring plan in 5 minutes. Board-ready PDF output.', link:'https://headcountiq.talentsradar.com', linkTxt:'Open HeadcountIQ →', status:'live' },
+  { num:'04', mark:'AI', name:'AttritionAI', desc:'Predict who\u2019s leaving before they resign. Multi-signal risk scores ranked by financial impact.', link:'#attrition', linkTxt:'Join early access \u2192', status:'soon' },
+];
+
+function ConnectedTools() {
+  const [active, setActive] = React.useState(2);
+  React.useEffect(()=>{
+    const t = setInterval(()=>setActive(p=>(p+1)%4), 2800);
+    return ()=>clearInterval(t);
+  },[]);
+  return (
+    <div className="connected-tools">
+      {CT_TOOLS.map((t,i)=>(
+        <div key={i} className={`ct-item${active===i?' active':''}${t.status==='soon'?' soon':''}`} onClick={()=>setActive(i)}>
+          <div className="ct-spine">
+            <div className="ct-node">{t.num}</div>
+          </div>
+          <div className="ct-card">
+            <div className="ct-card-top">
+              <span className="ct-card-name">{t.mark} · {t.name}</span>
+              <span className={`ct-card-tag ${t.status==='live'?'tag-live':'tag-soon'}`}>{t.status==='live'?'● Free':'○ Early'}</span>
+            </div>
+            <div className="ct-card-desc">{t.desc}</div>
+            {active===i && (
+              <a href={t.link} target={t.status==='live'?'_blank':'_self'} rel="noopener" className="ct-card-link" onClick={e=>e.stopPropagation()}>{t.linkTxt}</a>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ── Tools Steps ── */
+const TOOLS = [
+  {
+    num:'01', mark:'SM', name:'SkillMapper', tagline:'Salary benchmarks & skill profiles for 200+ roles.',
+    desc:'Know exactly what a role requires—including required skills—before you commit headcount. Map capabilities, benchmark salaries in INR and USD, and get hiring guidance — across 200+ roles and 18 departments.',
+    facts:['1,394+ skills across 18 departments','INR & USD salary bands — Junior to Lead','Search by skills, title, or plain English','One-click handoff to TalentXRay for sourcing'],
+    tags:['Engineering','Data','Product'],
+    cta:'Open SkillMapper →', link:'https://skillmapper.talentsradar.com', status:'live',
+  },
+  {
+    num:'02', mark:'TX', name:'TalentXRay', tagline:'Automated sourcing from required skills — instantly.',
+    desc:'The strongest candidates aren\'t applying. They\'re on LinkedIn, GitHub, Stack Overflow, and Behance. TalentXRay turns required skills into automated sourcing in seconds — no Recruiter licence required.',
+    facts:['LinkedIn, GitHub, Stack Overflow, Behance','Required skills + role + location targeting','Offer-to-Join ratio and funnel visibility','Works without a paid LinkedIn licence'],
+    tags:['LinkedIn','GitHub','Behance'],
+    cta:'Open TalentXRay →', link:'https://talentxray.talentsradar.com', status:'live',
+  },
+  {
+    num:'03', mark:'HQ', name:'HeadcountIQ', tagline:'Workforce planning, finally defensible.',
+    desc:'Turn your revenue target into a defensible hiring plan in five minutes. Headcount, level mix, monthly cost, runway, burn multiple — every number traceable. Board-ready output.',
+    facts:['Revenue-target to role-by-role hiring plan','Three scenarios: Conservative, Balanced, Aggressive','Industry-aware Org Health benchmarks','Editable board summary, print to PDF'],
+    tags:['CHRO','CFO','Founder'],
+    cta:'Open HeadcountIQ →', link:'https://headcountiq.talentsradar.com', status:'live',
+  },
+  {
+    num:'04', mark:'AI', name:'AttritionAI', tagline:'Diagnose attrition risk before people resign.',
+    desc:'By the time someone hands in notice, you\'ve already lost them. AttritionAI detects early warning signals — surveys, appraisals, leave patterns — and gives HRBPs specific interventions before the resignation lands.',
+    facts:['Multi-signal risk model: surveys, appraisals, leave','Financial impact ranking per employee','HRBP-ready Fix-It intervention playbooks','Founder pricing locked in for early access'],
+    tags:['HRBP','Retention'],
+    cta:'Join early access →', link:'#attrition', status:'soon',
+  },
+];
+
+const TSV_SKILLS = ['Python','React','SQL','Figma','AWS','Node.js','TypeScript','Power BI','Tableau','Docker','LLMs','Kotlin','Salesforce','Scrum','SAP'];
+
+function ToolVisualSkillMapper() {
+  const rootRef = React.useRef(null);
+  const reduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const [hiIdx, setHiIdx] = React.useState([2, 7, 10]);
+  const [pct, setPct] = React.useState(reduced ? '68' : '0');
+  const [salTxt, setSalTxt] = React.useState(reduced ? '₹32–60L · $168–225k' : '—');
+
+  React.useEffect(() => {
+    if (reduced) return undefined;
+    const id = setInterval(() => {
+      setHiIdx((prev) => prev.map((c) => (c + 4) % TSV_SKILLS.length));
+    }, 1800);
+    return () => clearInterval(id);
+  }, [reduced]);
+
+  React.useEffect(() => {
+    const el = rootRef.current;
+    if (!el || reduced) return undefined;
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        setTimeout(() => {
+          setPct('68');
+          setSalTxt('₹32–60L · $168–225k');
+        }, 420);
+        obs.disconnect();
+      }
+    }, { threshold: 0.22 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [reduced]);
+
+  const chipCls = (i) => {
+    let c = 'tsv-chip';
+    if (hiIdx.includes(i)) c += ' hi';
+    else if ([0, 4, 8, 12].includes(i)) c += ' lit';
+    return c;
+  };
+
+  const pick = (p, txt) => {
+    setPct(p);
+    setSalTxt(txt);
+  };
+
+  return (
+    <div className="tool-step-visual" ref={rootRef}>
+      <div className="tsv-skill-chips" aria-hidden="true">
+        {TSV_SKILLS.map((s, i) => (
+          <span key={s + '-' + i} className={chipCls(i)}>{s}</span>
+        ))}
+      </div>
+      <div className="tsv-sal-wrap">
+        <div className="tsv-sal-top">
+          <div className="tsv-sal-role">Senior Data Engineer · Bengaluru</div>
+          <div className="tsv-sal-dept">Data Engineering</div>
+        </div>
+        <div className="tsv-sal-levels">
+          <button type="button" className={'tsv-sal-lv' + (pct === '40' ? ' active' : '')} onClick={() => pick('40', '₹16–32L · $115–162k')}>Junior</button>
+          <button type="button" className={'tsv-sal-lv' + (pct === '68' ? ' active' : '')} onClick={() => pick('68', '₹32–60L · $168–225k')}>Senior</button>
+          <button type="button" className={'tsv-sal-lv' + (pct === '88' ? ' active' : '')} onClick={() => pick('88', '₹60–98L · $225–285k')}>Lead</button>
+        </div>
+        <div className="tsv-sal-track-row">
+          <div className="tsv-sal-track">
+            <div className="tsv-sal-fill" style={{ width: pct + '%' }} />
+            <div className="tsv-sal-marker" style={{ left: pct + '%' }} />
+          </div>
+          <div className="tsv-sal-val">{salTxt}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const TX_TOKENS = [
+  ['site:linkedin.com/in', 'site'], [' ', ''], ['AND', 'op'], [' (', ''], ['"Product Manager"', 'kw'], [' ', ''], ['OR', 'op'], [' ', ''], ['"Product Owner"', 'kw'], [')', ''],
+  [' ', ''], ['AND', 'op'], [' (', ''], ['"Agile"', 'kw'], [' ', ''], ['OR', 'op'], [' ', ''], ['"Roadmap"', 'kw'], [')', ''],
+];
+
+function ToolVisualTalentXRay() {
+  const ref = React.useRef(null);
+  const reduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const [n, setN] = React.useState(reduced ? TX_TOKENS.length : 0);
+  const started = React.useRef(false);
+
+  React.useEffect(() => {
+    if (reduced) {
+      setN(TX_TOKENS.length);
+      return undefined;
+    }
+    const el = ref.current;
+    if (!el) return undefined;
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !started.current) {
+        started.current = true;
+        let i = 0;
+        const id = setInterval(() => {
+          i += 1;
+          setN(i);
+          if (i >= TX_TOKENS.length) clearInterval(id);
+        }, 34);
+      }
+    }, { threshold: 0.3 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [reduced]);
+
+  return (
+    <div className="tool-step-visual">
+      <div ref={ref} className={'tsv-code' + (n >= TX_TOKENS.length ? ' tsv-code-caret' : '')} aria-hidden="true">
+        {TX_TOKENS.map(([text, cls], i) => (
+          <span key={i} className={cls || undefined} style={{ opacity: i < n ? 1 : 0, transition: 'opacity .1s ease' }}>{text}</span>
+        ))}
+      </div>
+      <div className="tsv-txr-result"><span>✓</span> String ready — paste into Google to X-Ray LinkedIn</div>
+    </div>
+  );
+}
+
+function ToolVisualHeadcount() {
+  const ref = React.useRef(null);
+  const reduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const [on, setOn] = React.useState(!!reduced);
+  React.useEffect(() => {
+    if (reduced) return undefined;
+    const el = ref.current;
+    if (!el) return undefined;
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        setOn(true);
+        obs.disconnect();
+      }
+    }, { threshold: 0.28 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [reduced]);
+  const bars = [
+    { lbl: 'Engineering', w: '72%', col: '#d97706', val: '4 roles' },
+    { lbl: 'Sales', w: '50%', col: '#7c3aed', val: '3 roles' },
+    { lbl: 'Growth', w: '28%', col: '#15803d', val: '2 roles' },
+  ];
+  return (
+    <div className="tool-step-visual" ref={ref}>
+      <div className="tsv-ai-card">
+        <div className="tsv-ai-kv"><span className="tsv-ai-k">Company stage</span><span className="tsv-ai-v">Series A · 40 people</span></div>
+        <div className="tsv-ai-kv"><span className="tsv-ai-k">Revenue target</span><span className="tsv-ai-v">$2M ARR · 12 mo</span></div>
+        <div className="tsv-ai-hr" />
+        <span className="tsv-ai-hint">Recommended hires — next 6 months</span>
+        <div className="tsv-ai-bars">
+          {bars.map((b, i) => (
+            <div className="tsv-ai-bar-row" key={b.lbl}>
+              <span className="tsv-ai-bar-lbl">{b.lbl}</span>
+              <div className="tsv-ai-bar-track">
+                <div
+                  className="tsv-ai-bar-fill"
+                  style={{
+                    width: on ? b.w : '0%',
+                    background: b.col,
+                    transitionDelay: on && !reduced ? i * 0.12 + 's' : '0s',
+                  }}
+                />
+              </div>
+              <span className="tsv-ai-bar-val" style={{ color: b.col }}>{b.val}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ToolVisualAttrition() {
+  const ref = React.useRef(null);
+  const reduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const [on, setOn] = React.useState(!!reduced);
+  React.useEffect(() => {
+    if (reduced) return undefined;
+    const el = ref.current;
+    if (!el) return undefined;
+    const obs = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) {
+        setOn(true);
+        obs.disconnect();
+      }
+    }, { threshold: 0.28 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [reduced]);
+  const bars = [
+    { lbl: 'Survey + leave', w: '82%', col: '#dc2626', val: 'High' },
+    { lbl: 'Appraisal trend', w: '52%', col: '#d97706', val: 'Med' },
+    { lbl: 'Comp gap', w: '26%', col: '#15803d', val: 'Low' },
+  ];
+  return (
+    <div className="tool-step-visual" ref={ref}>
+      <div className="tsv-ai-card">
+        <span className="tsv-ai-hint">Attrition risk — multi-signal view</span>
+        <div className="tsv-ai-bars">
+          {bars.map((b, i) => (
+            <div className="tsv-ai-bar-row" key={b.lbl}>
+              <span className="tsv-ai-bar-lbl">{b.lbl}</span>
+              <div className="tsv-ai-bar-track">
+                <div
+                  className="tsv-ai-bar-fill"
+                  style={{
+                    width: on ? b.w : '0%',
+                    background: b.col,
+                    transitionDelay: on && !reduced ? i * 0.12 + 's' : '0s',
+                  }}
+                />
+              </div>
+              <span className="tsv-ai-bar-val" style={{ color: b.col }}>{b.val}</span>
+            </div>
+          ))}
+        </div>
+        <div className="tsv-ai-note">↗ Schedule retention touchpoint · clarify growth path this cycle.</div>
+      </div>
+    </div>
+  );
+}
+
+const TOOL_STEP_VISUALS = [ToolVisualSkillMapper, ToolVisualTalentXRay, ToolVisualHeadcount, ToolVisualAttrition];
+
+function ToolsSteps() {
+  const factNum = (i) => String(i + 1).padStart(2, '0');
+  return (
+    <React.Fragment>
+      {TOOLS.map((t,i)=>{
+        const Visual = TOOL_STEP_VISUALS[i];
+        return (
+        <div key={i} className={`tool-step-card${t.status==='soon'?' soon':''}`}>
+          <div className="tool-step-num">Step {t.num}</div>
+          <div className="tool-step-mark">{t.mark}</div>
+          <div className="tool-step-name">{t.name}</div>
+          <p className="tool-step-tagline">{t.tagline}</p>
+          <p className="tool-step-desc">{t.desc}</p>
+          <div className="tool-step-facts-box">
+            {t.facts.map((line,j)=>(
+              <div className="tool-step-fact-row" key={j}>
+                <span className="tool-step-fact-num">{factNum(j)}</span>
+                <span>{line}</span>
+              </div>
+            ))}
+          </div>
+          {Visual ? <Visual /> : null}
+          <div className="tool-step-foot">
+            <div className="tool-step-cta-row">
+              <a href={t.link} target={t.status==='live'?'_blank':'_self'} rel="noopener" className="tool-step-cta">{t.cta}</a>
+              {t.status==='live'
+                ? <span className="tool-step-badge" style={{background:'var(--green-l)',color:'var(--green)',border:'1px solid #bbf7d0'}}>Free</span>
+                : <span className="tool-step-badge" style={{background:'var(--amber-l)',color:'var(--amber)',border:'1px solid #fde68a'}}>Early Access</span>
+              }
+            </div>
+            <div className="tool-step-tags">
+              {t.tags.map((tag)=>(
+                <span key={tag} className="tool-step-tag-chip">{tag}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+        );
+      })}
+    </React.Fragment>
+  );
+}
+
+/* ── Early Access Form ── */
+function EAForm() {
+  const [step, setStep] = React.useState('form');
+  const [form, setForm] = React.useState({first:'',email:'',company:'',role:''});
+  const [errs, setErrs] = React.useState({});
+  const [submitErr, setSubmitErr] = React.useState('');
+  const validate=()=>{ const e={}; if(!form.first.trim())e.first=true; if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))e.email=true; return e; };
+  const submit=async()=>{
+    const e=validate(); if(Object.keys(e).length){setErrs(e);return;}
+    setSubmitErr('');
+    try {
+      const { ok } = await insertWebsiteFormSubmission({
+        form_type: 'early_access',
+        first_name: form.first.trim(),
+        email: form.email.trim(),
+        company: form.company.trim() || null,
+        role: form.role.trim() || null,
+        source: 'homepage_attrition_early_access',
+        metadata: leadMetadata(),
+      });
+      if (!ok) {
+        setSubmitErr('Something went wrong. Please try again in a moment.');
+        return;
+      }
+      setStep('ok');
+    } catch (_) {
+      setSubmitErr('Something went wrong. Please try again in a moment.');
+    }
+  };
+  if(step==='ok') return (
+    <div className="ea-success">
+      <div className="ea-success-icon">✓</div>
+      <h4>You're on the list.</h4>
+      <p>We'll reach out before launch. Founder pricing is locked in for you — no payment now.</p>
+    </div>
+  );
+  return (
+    <div className="ea-form">
+      <div className="ea-row">
+        <input className={`ea-input${errs.first?' err':''}`} placeholder="First name *" value={form.first} onChange={e=>setForm({...form,first:e.target.value})} />
+        <input className="ea-input" placeholder="Company" value={form.company} onChange={e=>setForm({...form,company:e.target.value})} />
+      </div>
+      <input className={`ea-input${errs.email?' err':''}`} placeholder="Work email *" type="email" value={form.email} onChange={e=>setForm({...form,email:e.target.value})} />
+      <select className="ea-input" value={form.role} onChange={e=>setForm({...form,role:e.target.value})} style={{color:form.role?'var(--ink)':'var(--ink3)',background:'var(--paper2)'}}>
+        <option value="" disabled>Your role</option>
+        <option>CEO / Founder</option><option>CFO</option>
+        <option>CHRO / VP People</option><option>HRBP / HR Manager</option><option>Other</option>
+      </select>
+      {submitErr ? <p style={{fontSize:13,color:'var(--red)',marginTop:4}}>{submitErr}</p> : null}
+      <button className="ea-submit" onClick={submit}>Request early access →</button>
+      <p className="ea-note">No payment now · Founder pricing locked · Priority onboarding</p>
+    </div>
+  );
+}
+
+/* ── Demo Modal ── */
+function DemoModal({ onClose }) {
+  const [step, setStep] = React.useState('form');
+  const [form, setForm] = React.useState({first:'',last:'',email:'',phone:'',company:'',role:''});
+  const [errs, setErrs] = React.useState({});
+  const [submitErr, setSubmitErr] = React.useState('');
+  const validate=()=>{
+    const e={};
+    if(!form.first.trim())e.first=true;
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))e.email=true;
+    const digits=String(form.phone).replace(/\D/g,'');
+    if(digits.length<10)e.phone=true;
+    if(!form.company.trim())e.company=true;
+    return e;
+  };
+  const submit=async()=>{
+    const e=validate(); if(Object.keys(e).length){setErrs(e);return;}
+    setSubmitErr('');
+    try {
+      const { ok } = await insertWebsiteFormSubmission({
+        form_type: 'demo_request',
+        first_name: form.first.trim(),
+        last_name: form.last.trim() || null,
+        email: form.email.trim(),
+        phone: form.phone.trim(),
+        company: form.company.trim(),
+        role: form.role.trim() || null,
+        source: 'homepage_book_demo',
+        metadata: leadMetadata(),
+      });
+      if (!ok) {
+        setSubmitErr('Something went wrong. Please try again in a moment.');
+        return;
+      }
+      setStep('ok');
+    } catch (_) {
+      setSubmitErr('Something went wrong. Please try again in a moment.');
+    }
+  };
+  if(step==='ok') return (
+    <div className="m-success">
+      <div className="m-success-icon">✓</div>
+      <h3>Request received</h3>
+      <p>We'll reach out within one business day to schedule your 30-minute walkthrough.</p>
+      <button className="btn btn-violet" onClick={onClose}>Close</button>
+    </div>
+  );
+  return (
+    <React.Fragment>
+      <h3>Book your demo</h3>
+      <p>30-minute walkthrough with a custom ROI analysis for your company size and sector.</p>
+      <div className="m-form">
+        <div className="m-row">
+          <input className={`m-input${errs.first?' err':''}`} placeholder="First name *" value={form.first} onChange={e=>setForm({...form,first:e.target.value})} />
+          <input className="m-input" placeholder="Last name" value={form.last} onChange={e=>setForm({...form,last:e.target.value})} />
+        </div>
+        <input className={`m-input${errs.email?' err':''}`} placeholder="Work email *" type="email" value={form.email} onChange={e=>setForm({...form,email:e.target.value})} autoComplete="email" />
+        <input className={`m-input${errs.phone?' err':''}`} placeholder="Phone or WhatsApp * (incl. country code)" type="tel" inputMode="tel" value={form.phone} onChange={e=>setForm({...form,phone:e.target.value})} autoComplete="tel" />
+        <input className={`m-input${errs.company?' err':''}`} placeholder="Company name *" value={form.company} onChange={e=>setForm({...form,company:e.target.value})} autoComplete="organization" />
+        <select className="m-input" value={form.role} onChange={e=>setForm({...form,role:e.target.value})} style={{color:form.role?'var(--ink)':'var(--ink3)',background:'var(--paper2)'}}>
+          <option value="" disabled>Your role</option>
+          <option>CEO / Founder</option><option>CFO</option><option>COO</option>
+          <option>CHRO / VP People</option><option>Other</option>
+        </select>
+        {submitErr ? <p style={{fontSize:13,color:'var(--red)',marginTop:4}}>{submitErr}</p> : null}
+        <div className="m-footer">
+          <button className="m-cancel" onClick={onClose}>Cancel</button>
+          <button className="btn btn-violet" onClick={submit}>Request demo →</button>
+        </div>
+      </div>
+    </React.Fragment>
+  );
+}
+
+/* ── Contact modal (footer) ── */
+function ContactModal({ onClose, open }) {
+  const [step, setStep] = React.useState('form');
+  const [form, setForm] = React.useState({ name: '', email: '', company: '', message: '' });
+  const [errs, setErrs] = React.useState({});
+  const [submitErr, setSubmitErr] = React.useState('');
+  React.useEffect(() => {
+    if (!open) return;
+    setStep('form');
+    setForm({ name: '', email: '', company: '', message: '' });
+    setErrs({});
+    setSubmitErr('');
+  }, [open]);
+  const validate = () => {
+    const e = {};
+    if (!form.name.trim()) e.name = true;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = true;
+    if (!form.company.trim()) e.company = true;
+    if (!form.message.trim() || form.message.trim().length < 8) e.message = true;
+    return e;
+  };
+  const submit = async () => {
+    const e = validate();
+    if (Object.keys(e).length) {
+      setErrs(e);
+      return;
+    }
+    setSubmitErr('');
+    try {
+      const { ok } = await insertWebsiteFormSubmission({
+        form_type: 'contact',
+        first_name: form.name.trim(),
+        email: form.email.trim(),
+        company: form.company.trim(),
+        message: form.message.trim(),
+        source: 'footer_contact',
+        metadata: leadMetadata(),
+      });
+      if (!ok) {
+        setSubmitErr('Something went wrong. Please try again in a moment.');
+        return;
+      }
+      setStep('ok');
+    } catch (_) {
+      setSubmitErr('Something went wrong. Please try again in a moment.');
+    }
+  };
+  if (step === 'ok')
+    return (
+      <div className="m-success">
+        <div className="m-success-icon">✓</div>
+        <h3>Message sent</h3>
+        <p>Thanks for reaching out — we&apos;ll get back to you shortly.</p>
+        <button className="btn btn-violet" onClick={onClose}>
+          Close
+        </button>
+      </div>
+    );
+  return (
+    <React.Fragment>
+      <h3>Contact us</h3>
+      <p>Tell us what you need — we read every message.</p>
+      <div className="m-form">
+        <input
+          className={`m-input${errs.name ? ' err' : ''}`}
+          placeholder="Your name *"
+          value={form.name}
+          onChange={(ev) => setForm({ ...form, name: ev.target.value })}
+          autoComplete="name"
+        />
+        <input
+          className={`m-input${errs.email ? ' err' : ''}`}
+          placeholder="Work email *"
+          type="email"
+          value={form.email}
+          onChange={(ev) => setForm({ ...form, email: ev.target.value })}
+          autoComplete="email"
+        />
+        <input
+          className={`m-input${errs.company ? ' err' : ''}`}
+          placeholder="Company name *"
+          value={form.company}
+          onChange={(ev) => setForm({ ...form, company: ev.target.value })}
+          autoComplete="organization"
+        />
+        <textarea
+          className={`m-input${errs.message ? ' err' : ''}`}
+          placeholder="How can we help? *"
+          rows={4}
+          value={form.message}
+          onChange={(ev) => setForm({ ...form, message: ev.target.value })}
+        />
+        {submitErr ? (
+          <p style={{ fontSize: 13, color: 'var(--red)', marginTop: 4 }}>{submitErr}</p>
+        ) : null}
+        <div className="m-footer">
+          <button type="button" className="m-cancel" onClick={onClose}>
+            Cancel
+          </button>
+          <button type="button" className="btn btn-violet" onClick={submit}>
+            Send message →
+          </button>
+        </div>
+      </div>
+    </React.Fragment>
+  );
+}
+
+/* ── Tweaks Panel ── */
+function TPWrap() {
+  const { tweaks, setTweak } = useT();
+  React.useEffect(()=>{
+    const h=e=>{ if(e.data?.type==='__activate_edit_mode') window.__tweaksShow?.(true); if(e.data?.type==='__deactivate_edit_mode') window.__tweaksShow?.(false); };
+    window.addEventListener('message',h);
+    window.parent.postMessage({type:'__edit_mode_available'},'*');
+    return ()=>window.removeEventListener('message',h);
+  },[]);
+  return (
+    <TweaksPanel>
+      <TweakSection label="Brand">
+        <TweakColor label="Accent color" id="accentColor" value={tweaks.accentColor} onChange={v=>setTweak('accentColor',v)} />
+      </TweakSection>
+      <TweakSection label="Copy">
+        <TweakText label="Demo CTA label" id="heroCTA" value={tweaks.heroCTA} onChange={v=>setTweak('heroCTA',v)} />
+      </TweakSection>
+    </TweaksPanel>
+  );
+}
+
+/* ── Shell ── */
+function Shell() {
+  const { tweaks } = useT();
+  const [modal, setModal] = React.useState(false);
+  const [contactModal, setContactModal] = React.useState(false);
+
+  React.useEffect(()=>{
+    document.documentElement.style.setProperty('--violet', tweaks.accentColor);
+    // derive violet2 (lighter) and violet-l (tint)
+    document.documentElement.style.setProperty('--violet2', tweaks.accentColor+'dd');
+    document.documentElement.style.setProperty('--violet-l', tweaks.accentColor+'15');
+    document.documentElement.style.setProperty('--violet-m', tweaks.accentColor+'66');
+    document.documentElement.style.setProperty('--violet-d', tweaks.accentColor);
+  },[tweaks.accentColor]);
+
+  React.useEffect(()=>{
+    ['hero-demo-btn','nav-demo-btn','ea-demo-btn'].forEach(id=>{
+      const el=document.getElementById(id); if(el) el.textContent=tweaks.heroCTA;
+    });
+  },[tweaks.heroCTA]);
+
+  React.useEffect(()=>{
+    const open=e=>{e.preventDefault();setContactModal(false);setModal(true);};
+    const ids=['hero-demo-btn','nav-demo-btn','ea-demo-btn'];
+    const els=ids.map(id=>document.getElementById(id));
+    els.forEach(el=>el?.addEventListener('click',open));
+    return ()=>els.forEach(el=>el?.removeEventListener('click',open));
+  },[]);
+
+  React.useEffect(()=>{
+    const el=document.getElementById('footer-contact-btn');
+    const open=e=>{
+      e.preventDefault();
+      setModal(false);
+      setContactModal(true);
+    };
+    el?.addEventListener('click',open);
+    return ()=>el?.removeEventListener('click',open);
+  },[]);
+
+  React.useEffect(()=>{
+    const nav=document.getElementById('main-nav');
+    const fn=()=>nav?.classList.toggle('scrolled',window.scrollY>8);
+    window.addEventListener('scroll',fn); return ()=>window.removeEventListener('scroll',fn);
+  },[]);
+
+  React.useEffect(()=>{
+    const obs=new IntersectionObserver(entries=>{ entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');}); },{threshold:0.08});
+    document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+    return ()=>obs.disconnect();
+  },[]);
+
+  React.useEffect(()=>{
+    document.getElementById('demo-modal')?.classList.toggle('open',modal);
+  },[modal]);
+
+  React.useEffect(()=>{
+    document.getElementById('contact-modal')?.classList.toggle('open',contactModal);
+  },[contactModal]);
+
+  React.useEffect(()=>{
+    const bg=document.getElementById('demo-modal');
+    const fn=e=>{if(e.target===bg)setModal(false);};
+    bg?.addEventListener('click',fn); return ()=>bg?.removeEventListener('click',fn);
+  },[]);
+
+  React.useEffect(()=>{
+    const bg=document.getElementById('contact-modal');
+    const fn=e=>{if(e.target===bg)setContactModal(false);};
+    bg?.addEventListener('click',fn); return ()=>bg?.removeEventListener('click',fn);
+  },[]);
+
+  const ctRoot   = document.getElementById('connected-tools-root');
+  const tsRoot   = document.getElementById('tools-steps-root');
+  const eaRoot   = document.getElementById('ea-form-root');
+  const mRoot    = document.getElementById('modal-card');
+  const cRoot    = document.getElementById('contact-modal-card');
+
+  return (
+    <React.Fragment>
+      {ctRoot && ReactDOM.createPortal(<ConnectedTools />, ctRoot)}
+      {tsRoot && ReactDOM.createPortal(<ToolsSteps />, tsRoot)}
+      {eaRoot && ReactDOM.createPortal(<EAForm />, eaRoot)}
+      {mRoot  && ReactDOM.createPortal(<DemoModal onClose={()=>setModal(false)} />, mRoot)}
+      {cRoot  && ReactDOM.createPortal(<ContactModal open={contactModal} onClose={()=>setContactModal(false)} />, cRoot)}
+      <TPWrap />
+    </React.Fragment>
+  );
+}
+
+const r=document.createElement('div');
+document.body.appendChild(r);
+ReactDOM.createRoot(r).render(<TProvider><Shell /></TProvider>);
+</script>
+</body>
+</html>
