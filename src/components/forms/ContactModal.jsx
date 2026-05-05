@@ -38,7 +38,7 @@ export default function ContactModal({ open, onClose }) {
     }
     setSubmitErr('');
     try {
-      const { ok } = await insertWebsiteFormSubmission({
+      const { ok, status, error } = await insertWebsiteFormSubmission({
         form_type: 'contact',
         first_name: form.name.trim(),
         email: form.email.trim(),
@@ -48,6 +48,7 @@ export default function ContactModal({ open, onClose }) {
         metadata: leadMetadata(),
       });
       if (!ok) {
+        console.error('[ContactModal] submit failed', { status, error });
         setSubmitErr('Something went wrong. Please try again in a moment.');
         return;
       }

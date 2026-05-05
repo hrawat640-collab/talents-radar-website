@@ -30,7 +30,7 @@ export default function EarlyAccessForm() {
     }
     setSubmitErr('');
     try {
-      const { ok } = await insertWebsiteFormSubmission({
+      const { ok, status, error } = await insertWebsiteFormSubmission({
         form_type: 'early_access',
         first_name: form.first.trim(),
         email: form.email.trim(),
@@ -40,6 +40,7 @@ export default function EarlyAccessForm() {
         metadata: leadMetadata(),
       });
       if (!ok) {
+        console.error('[EarlyAccessForm] submit failed', { status, error });
         setSubmitErr('Something went wrong. Please try again in a moment.');
         return;
       }

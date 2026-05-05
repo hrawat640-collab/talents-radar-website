@@ -35,6 +35,7 @@ export default function DemoModal({ open, onClose }) {
     const digits = String(form.phone).replace(/\D/g, '');
     if (digits.length < 10) e.phone = true;
     if (!form.company.trim()) e.company = true;
+    if (!form.role.trim()) e.role = true;
     return e;
   };
 
@@ -46,18 +47,19 @@ export default function DemoModal({ open, onClose }) {
     }
     setSubmitErr('');
     try {
-      const { ok } = await insertWebsiteFormSubmission({
+      const { ok, status, error } = await insertWebsiteFormSubmission({
         form_type: 'demo_request',
         first_name: form.first.trim(),
         last_name: form.last.trim() || null,
         email: form.email.trim(),
         phone: form.phone.trim(),
         company: form.company.trim(),
-        role: form.role.trim() || null,
+        role: form.role.trim(),
         source: 'homepage_book_demo',
         metadata: leadMetadata(),
       });
       if (!ok) {
+        console.error('[DemoModal] submit failed', { status, error });
         setSubmitErr('Something went wrong. Please try again in a moment.');
         return;
       }
@@ -138,20 +140,13 @@ export default function DemoModal({ open, onClose }) {
                 onChange={(ev) => setForm({ ...form, company: ev.target.value })}
                 autoComplete="organization"
               />
-              <select
-                className={`${inputCls()} ${form.role ? 'text-slate-800' : 'text-slate-400'}`}
+              <input
+                className={inputCls(errs.role)}
+                placeholder="Your role *"
                 value={form.role}
                 onChange={(ev) => setForm({ ...form, role: ev.target.value })}
-              >
-                <option value="" disabled>
-                  Your role
-                </option>
-                <option>CEO / Founder</option>
-                <option>CFO</option>
-                <option>COO</option>
-                <option>CHRO / VP People</option>
-                <option>Other</option>
-              </select>
+                autoComplete="organization-title"
+              />
               {submitErr ? <p className="text-sm text-red-600">{submitErr}</p> : null}
               <div className="mt-2 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
                 <button
