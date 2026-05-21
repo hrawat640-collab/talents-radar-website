@@ -1,7 +1,9 @@
 import NavBar from './components/NavBar.jsx';
 import HeroSection from './components/HeroSection.jsx';
-import WhatWeDoSection from './components/WhatWeDoSection.jsx';
+import ConnectedIntelligenceSection from './components/ConnectedIntelligenceSection.jsx';
 import ProductFlowSection from './components/ProductFlowSection.jsx';
+import RadarAISection from './components/RadarAISection.jsx';
+import FinalCTASection from './components/FinalCTASection.jsx';
 import Footer from './components/Footer.jsx';
 import FormModalsHost from './components/FormModalsHost.jsx';
 import { FormModalsProvider } from './context/FormModalsContext.jsx';
@@ -13,8 +15,10 @@ export default function App() {
         <NavBar />
         <main>
           <HeroSection />
+          <ConnectedIntelligenceSection />
           <ProductFlowSection />
-          <WhatWeDoSection />
+          <RadarAISection />
+          <FinalCTASection />
         </main>
         <Footer />
         <FormModalsHost />

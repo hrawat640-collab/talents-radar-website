@@ -8,7 +8,7 @@ const satellites = [
   { id: 'hq', label: 'HeadcountIQ', x: 200, y: 44, stroke: '#7c3aed' },
   { id: 'sm', label: 'SkillMapper', x: 36, y: 160, stroke: '#0f766e' },
   { id: 'tx', label: 'TalentXRay', x: 364, y: 160, stroke: '#0f766e' },
-  { id: 'ai', label: 'Attrition AI', x: 200, y: 276, stroke: '#b91c1c' },
+  { id: 'ai', label: 'RetainIQ', x: 200, y: 276, stroke: '#b91c1c' },
 ];
 
 export default function IntelligenceSection() {

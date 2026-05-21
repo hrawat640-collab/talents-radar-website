@@ -1,36 +1,33 @@
 import { motion } from 'framer-motion';
-import { easeOut, fadeUp, staggerContainer } from '../lib/motionPresets.js';
+import { useFormModals } from '../context/FormModalsContext.jsx';
+import { fadeUp, staggerContainer } from '../lib/motionPresets.js';
 
 export default function FinalCTASection() {
-  const explore = () => document.getElementById('product-flow')?.scrollIntoView({ behavior: 'smooth' });
+  const { openDemo } = useFormModals();
 
   return (
-    <section className="border-t border-slate-200 bg-gradient-to-b from-white to-slate-50 px-5 py-24 md:py-28">
+    <section id="cta" className="border-t border-slate-100/80 bg-white px-5 py-16 md:py-24">
       <motion.div
-        className="relative mx-auto max-w-[1200px] text-center"
+        className="mx-auto max-w-2xl text-center"
         initial="hidden"
         whileInView="visible"
-        viewport={{ once: true, margin: '-80px' }}
+        viewport={{ once: true, margin: '-72px' }}
         variants={staggerContainer}
       >
-        <motion.h2 variants={fadeUp} className="text-3xl font-semibold tracking-tight text-slate-900 md:text-4xl">
-          Bring revenue, hiring, and retention into one executive view
+        <motion.h2 variants={fadeUp} className="text-2xl font-semibold tracking-tight text-slate-900 md:text-3xl">
+          See connected workforce intelligence on a demo
         </motion.h2>
-        <motion.p variants={fadeUp} className="mx-auto mt-5 max-w-xl text-lg text-slate-600">
-          Scroll back to the interactive Plan → Retain sequence—the same accents and density as the live console aesthetic.
+        <motion.p variants={fadeUp} className="mt-4 text-sm leading-relaxed text-slate-500 md:text-base">
+          Walk through HeadcountIQ, SkillMapper, TalentXRay, RetainIQ, and Radar AI with your leadership team.
         </motion.p>
-
-        <motion.div variants={fadeUp} className="mt-12 flex justify-center">
-          <motion.button
+        <motion.div variants={fadeUp} className="mt-8 flex justify-center md:mt-10">
+          <button
             type="button"
-            onClick={explore}
-            className="inline-flex items-center justify-center rounded-xl bg-purple-600 px-12 py-4 text-sm font-semibold text-white shadow-xl shadow-purple-900/25 transition-colors hover:bg-purple-700"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.3, ease: easeOut }}
+            onClick={openDemo}
+            className="w-full max-w-xs rounded-xl bg-slate-900 px-10 py-3.5 text-[15px] font-semibold text-white shadow-soft transition-all duration-300 ease-premium hover:-translate-y-px hover:bg-slate-800 hover:shadow-card-hover sm:w-auto"
           >
-            Explore Plan → Retain
-          </motion.button>
+            Book a Demo
+          </button>
         </motion.div>
       </motion.div>
     </section>

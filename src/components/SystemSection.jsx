@@ -27,7 +27,7 @@ const cards = [
     link: 'text-teal-800 hover:text-teal-900',
   },
   {
-    product: 'Attrition AI',
+    product: 'RetainIQ',
     line: 'Spot retention risk early · prioritized signals · exec-ready actions',
     href: '#product-flow',
     soon: true,

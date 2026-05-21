@@ -29,7 +29,7 @@ export default function Modal({ open, onClose, children, labelledBy }) {
           <motion.button
             type="button"
             aria-label="Close dialog"
-            className="absolute inset-0 bg-brand-dark/55 backdrop-blur-sm"
+            className="absolute inset-0 bg-slate-900/65 backdrop-blur-[6px]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -40,7 +40,7 @@ export default function Modal({ open, onClose, children, labelledBy }) {
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
-            className="relative z-[101] max-h-[min(92vh,720px)] w-full max-w-[440px] overflow-y-auto rounded-2xl border border-white/25 bg-white/75 p-6 shadow-glow-purple backdrop-blur-xl sm:p-8"
+            className="relative z-[101] max-h-[min(92vh,720px)] w-full max-w-[440px] overflow-y-auto rounded-2xl border border-slate-200/90 bg-white p-6 shadow-glow-purple sm:p-8"
             initial={{ opacity: 0, y: 16, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.98 }}

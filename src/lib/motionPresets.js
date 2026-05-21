@@ -1,30 +1,31 @@
-/** Shared motion presets — subtle, founder-premium feel */
-export const easeOut = [0, 0, 0.2, 1];
+/** Shared motion presets — calm, premium feel */
+export const easeOut = [0.25, 0.1, 0.25, 1];
+export const easePremium = [0.22, 1, 0.36, 1];
 
 export const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.45, ease: easeOut },
+    transition: { duration: 0.5, ease: easePremium },
   },
 };
 
 export const staggerContainer = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.1 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.04 },
   },
 };
 
 export const hoverLift = {
-  scale: 1.02,
-  transition: { duration: 0.3, ease: easeOut },
+  y: -2,
+  transition: { duration: 0.35, ease: easePremium },
 };
 
-/** Glass cards — glow shadow on hover (300ms ease-out) */
+/** Glass cards — soft shadow on hover */
 export const glassCardHover = {
-  scale: 1.02,
-  boxShadow: '0 10px 40px rgba(109, 94, 243, 0.25)',
-  transition: { duration: 0.3, ease: easeOut },
+  y: -2,
+  boxShadow: '0 12px 36px -12px rgba(109, 94, 243, 0.18)',
+  transition: { duration: 0.35, ease: easePremium },
 };

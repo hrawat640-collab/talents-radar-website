@@ -32,8 +32,8 @@
   --paper:    #faf9fc;
   --paper2:   #f3f1f8;
   --paper3:   #ebe8f3;
-  --line:     #e2dff0;
-  --line2:    #cec9e0;
+  --line:     #ebe8f3;
+  --line2:    #ddd8eb;
   --violet:   #4f35c8;
   --violet2:  #6b52d6;
   --violet-l: #ede9fa;
@@ -48,8 +48,9 @@
   --f:        'Sora', sans-serif;
   --mono:     'DM Mono', monospace;
   --r:        8px;
-  --shadow:   0 2px 16px rgba(79,53,200,0.08), 0 1px 4px rgba(0,0,0,0.04);
-  --shadow-lg:0 8px 40px rgba(79,53,200,0.12), 0 2px 8px rgba(0,0,0,0.06);
+  --ease:     cubic-bezier(0.22, 1, 0.36, 1);
+  --shadow:   0 2px 14px rgba(79,53,200,0.06), 0 1px 3px rgba(0,0,0,0.03);
+  --shadow-lg:0 8px 32px rgba(79,53,200,0.09), 0 2px 6px rgba(0,0,0,0.04);
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
@@ -76,35 +77,37 @@ nav{
 nav.scrolled{box-shadow:0 2px 16px rgba(79,53,200,0.07);}
 
 .nav-logo{
-  display:flex;align-items:center;gap:10px;
+  display:flex;align-items:center;gap:9px;
   text-decoration:none;color:var(--ink);
-  font-size:15px;font-weight:600;letter-spacing:-0.01em;
+  font-size:15px;font-weight:600;letter-spacing:-0.02em;
 }
 .nav-links{display:flex;align-items:center;gap:2px;list-style:none;}
 .nav-links a{
   font-size:13.5px;color:var(--ink2);text-decoration:none;
-  padding:6px 12px;border-radius:6px;font-weight:400;
-  transition:color 0.15s,background 0.15s;
+  padding:7px 12px;border-radius:8px;font-weight:400;
+  transition:color 0.3s var(--ease),background 0.3s var(--ease);
 }
 .nav-links a:hover{color:var(--ink);background:var(--paper2);}
 .nav-cta-pill{
-  background:var(--violet)!important;color:#fff!important;
-  font-weight:500!important;margin-left:6px;
-  transition:background 0.15s,transform 0.15s!important;
+  background:var(--ink)!important;color:#fff!important;
+  font-weight:500!important;margin-left:4px;
+  transition:background 0.3s var(--ease),transform 0.3s var(--ease),box-shadow 0.3s var(--ease)!important;
+  box-shadow:var(--shadow)!important;
 }
-.nav-cta-pill:hover{background:var(--violet2)!important;transform:translateY(-1px);}
+.nav-cta-pill:hover{background:#2a2738!important;transform:translateY(-1px);box-shadow:var(--shadow-lg)!important;}
 
 /* ── LOGO SVG ── */
-.logo-svg{width:32px;height:32px;flex-shrink:0;}
+.logo-svg{width:34px;height:34px;flex-shrink:0;}
 
 /* ── BUTTONS ── */
 .btn{
   font-family:var(--f);font-size:14px;font-weight:500;
   padding:11px 24px;border-radius:var(--r);cursor:pointer;
   text-decoration:none;display:inline-flex;align-items:center;gap:7px;
-  border:none;transition:all 0.18s;letter-spacing:-0.01em;
+  border:none;transition:transform 0.32s var(--ease),background 0.32s var(--ease),box-shadow 0.32s var(--ease),border-color 0.32s var(--ease);
+  letter-spacing:-0.01em;
 }
-.btn:hover{transform:translateY(-2px);}
+.btn:hover{transform:translateY(-1px);}
 .btn-violet{background:var(--violet);color:#fff;box-shadow:0 4px 16px rgba(79,53,200,0.25);}
 .btn-violet:hover{background:var(--violet2);box-shadow:0 6px 24px rgba(79,53,200,0.32);}
 .btn-outline{background:transparent;color:var(--ink2);border:1.5px solid var(--line2);}
@@ -237,7 +240,7 @@ nav.scrolled{box-shadow:0 2px 16px rgba(79,53,200,0.07);}
   margin:8px 0 8px 16px;
   background:#fff;border:1px solid var(--line);border-radius:var(--r);
   padding:16px 18px;cursor:pointer;
-  transition:border-color 0.2s,box-shadow 0.2s,background 0.2s;
+  transition:border-color 0.32s var(--ease),box-shadow 0.32s var(--ease),background 0.32s var(--ease),transform 0.32s var(--ease);
 }
 .ct-item:hover .ct-card,.ct-item.active .ct-card{
   border-color:var(--violet-m);
@@ -291,7 +294,7 @@ nav.scrolled{box-shadow:0 2px 16px rgba(79,53,200,0.07);}
 }
 .prob-card{
   background:var(--paper);padding:32px 28px;
-  transition:background 0.2s;
+  transition:background 0.32s var(--ease);
 }
 .prob-card:hover{background:var(--paper2);}
 .prob-num{
@@ -305,6 +308,44 @@ nav.scrolled{box-shadow:0 2px 16px rgba(79,53,200,0.07);}
 }
 .prob-card h3{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:8px;line-height:1.3;letter-spacing:-0.01em;}
 .prob-card p{font-size:13.5px;color:var(--ink2);line-height:1.65;font-weight:300;}
+.positioning-line{
+  margin:44px auto 0;max-width:640px;text-align:center;
+  font-size:15px;font-weight:300;line-height:1.75;letter-spacing:0.01em;
+  color:var(--ink3);
+}
+
+/* ── HOW IT WORKS ── */
+.how-section{
+  padding:88px clamp(20px,5vw,80px);
+  border-top:1px solid var(--line);
+  background:var(--paper2);
+}
+.how-steps{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:20px;
+  margin-top:48px;position:relative;
+}
+.how-steps::before{
+  content:'';position:absolute;left:16.67%;right:16.67%;top:22px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--line2),transparent);
+  pointer-events:none;
+}
+.how-step{
+  background:#fff;border:1px solid var(--line);border-radius:12px;
+  padding:32px 28px;box-shadow:var(--shadow);
+  transition:transform 0.32s var(--ease),box-shadow 0.32s var(--ease),border-color 0.32s var(--ease);
+}
+.how-step:hover{
+  transform:translateY(-2px);border-color:var(--line2);
+  box-shadow:var(--shadow-lg);
+}
+.how-step-num{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--violet-l);border:1px solid var(--violet-m);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--mono);font-size:11px;font-weight:600;color:var(--violet);
+}
+.how-step h3{font-size:17px;font-weight:600;color:var(--ink);letter-spacing:-0.02em;line-height:1.25;margin-top:18px;}
+.how-step p{font-size:13.5px;color:var(--ink2);font-weight:300;line-height:1.65;margin-top:10px;}
 
 /* ── TOOLS ENGINE ── */
 .tools-section{border-top:1px solid var(--line);}
@@ -328,7 +369,7 @@ nav.scrolled{box-shadow:0 2px 16px rgba(79,53,200,0.07);}
   padding:40px clamp(16px,3vw,36px) 40px;
   border-right:1px solid var(--line);
   display:flex;flex-direction:column;gap:16px;
-  transition:background 0.2s;
+  transition:background 0.32s var(--ease);
   position:relative;
 }
 .tool-step-card:last-child{border-right:none;}
@@ -670,6 +711,8 @@ footer{
 }
 @media(max-width:768px){
   .problem-grid{grid-template-columns:1fr;}
+  .how-steps{grid-template-columns:1fr;}
+  .how-steps::before{display:none;}
   .tools-steps{grid-template-columns:1fr;}
   .roi-numbers{grid-template-columns:1fr 1fr;}
   .nav-links{display:none;}
@@ -683,21 +726,18 @@ footer{
 <!-- NAV -->
 <nav id="main-nav">
   <a href="https://talentsradar.com" class="nav-logo">
-    <svg class="logo-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="16" cy="16" r="14" stroke="#4f35c8" stroke-width="1.2" opacity="0.3"/>
-      <circle cx="16" cy="16" r="9.5" stroke="#4f35c8" stroke-width="1.4" opacity="0.55"/>
-      <circle cx="16" cy="16" r="5" stroke="#4f35c8" stroke-width="1.6" opacity="0.8"/>
-      <circle cx="16" cy="16" r="2.2" fill="#4f35c8"/>
-      <line x1="16" y1="2" x2="16" y2="7" stroke="#4f35c8" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
-      <line x1="26.9" y1="9" x2="22.6" y2="11.5" stroke="#4f35c8" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+    <svg class="logo-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M5.5 21.5c0-6.35 4.7-11.5 10.5-11.5s10.5 5.15 10.5 11.5" stroke="#6B52D6" stroke-width="3.25" stroke-linecap="round"/>
+      <path d="M9 21.5c0-4.15 3.13-7.5 7-7.5s7 3.35 7 7.5" stroke="#4F35C8" stroke-width="2.75" stroke-linecap="round"/>
+      <circle cx="16" cy="22.25" r="2.85" fill="#166534"/>
     </svg>
     Talents Radar
   </a>
   <ul class="nav-links">
-    <li><a href="#tools">Platform</a></li>
-    <li><a href="#attrition">AttritionAI</a></li>
-    <li><a href="https://headcountiq.talentsradar.com" target="_blank" rel="noopener">HeadcountIQ ↗</a></li>
-    <li><a href="#" id="nav-demo-btn" class="nav-cta-pill">Book a Demo</a></li>
+    <li><a href="#questions">Questions</a></li>
+    <li><a href="#how-it-works">How it works</a></li>
+    <li><a href="#tools">Products</a></li>
+    <li><a href="#" id="nav-demo-btn" class="nav-cta-pill">Book demo</a></li>
   </ul>
 </nav>
 
@@ -752,7 +792,7 @@ footer{
 </section>
 
 <!-- PROBLEM -->
-<section class="section" id="problem">
+<section class="section" id="questions">
   <div class="section-label rev">
     <span class="label-line"></span>
     The Disconnect
@@ -780,6 +820,35 @@ footer{
       <p>By the time someone hands in notice, you've already lost them. The early signals were in the data — survey scores, appraisal trends, leave patterns. You just never connected them.</p>
     </div>
   </div>
+  <p class="positioning-line rev d3">
+    Most workforce decisions are made across disconnected workflows, making organizational visibility fragmented and reactive.
+  </p>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how-it-works">
+  <div class="section-label rev">
+    <span class="label-line"></span>
+    How it works
+  </div>
+  <h2 class="section-h2 rev d1">From signals to <span>answers</span></h2>
+  <div class="how-steps rev d2">
+    <div class="how-step">
+      <div class="how-step-num">01</div>
+      <h3>Workforce workflows generate signals</h3>
+      <p>Planning, hiring, and retention activity across your tools produces context — without another integration project.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">02</div>
+      <h3>Talents Radar connects workforce context</h3>
+      <p>Signals from everyday workflows are linked so leaders see one coherent picture, not scattered spreadsheets.</p>
+    </div>
+    <div class="how-step">
+      <div class="how-step-num">03</div>
+      <h3>Leaders get data-backed answers</h3>
+      <p>Clear, defensible answers on headcount, compensation, sourcing, and retention — when decisions need to be made.</p>
+    </div>
+  </div>
 </section>
 
 <!-- TOOLS ENGINE -->
@@ -788,10 +857,10 @@ footer{
     <div class="rev">
       <div class="section-label">
         <span class="label-line"></span>
-        The Platform
+        Products
       </div>
       <h2 class="section-h2">
-        Four tools.<br><span>One engine.</span>
+        Four tools.<br><span>One workflow.</span>
       </h2>
     </div>
     <div class="rev d1">
@@ -876,11 +945,10 @@ footer{
   <div class="footer-top">
     <div class="footer-brand">
       <div class="footer-logo">
-        <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="16" cy="16" r="14" stroke="rgba(255,255,255,0.2)" stroke-width="1.2"/>
-          <circle cx="16" cy="16" r="9.5" stroke="rgba(255,255,255,0.35)" stroke-width="1.4"/>
-          <circle cx="16" cy="16" r="5" stroke="rgba(255,255,255,0.55)" stroke-width="1.6"/>
-          <circle cx="16" cy="16" r="2.2" fill="#fff"/>
+        <svg width="30" height="30" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M5.5 21.5c0-6.35 4.7-11.5 10.5-11.5s10.5 5.15 10.5 11.5" stroke="rgba(255,255,255,0.55)" stroke-width="3.25" stroke-linecap="round"/>
+          <path d="M9 21.5c0-4.15 3.13-7.5 7-7.5s7 3.35 7 7.5" stroke="rgba(255,255,255,0.38)" stroke-width="2.75" stroke-linecap="round"/>
+          <circle cx="16" cy="22.25" r="2.85" fill="rgba(255,255,255,0.9)"/>
         </svg>
         Talents Radar
       </div>
@@ -896,11 +964,11 @@ footer{
       </ul>
     </div>
     <div class="footer-col">
-      <h4>Platform</h4>
+      <h4>Explore</h4>
       <ul>
-        <li><a href="#tools">How it works</a></li>
-        <li><a href="#problem">The problem</a></li>
-        <li><a href="#attrition">Early access</a></li>
+        <li><a href="#questions">Questions</a></li>
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#tools">Products</a></li>
       </ul>
     </div>
     <div class="footer-col">

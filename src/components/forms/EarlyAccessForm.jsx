@@ -73,7 +73,7 @@ export default function EarlyAccessForm() {
     <div className="rounded-2xl border border-violet-200/70 bg-white/90 p-6 shadow-lg backdrop-blur-sm md:p-7">
       <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-violet-700">Early access</p>
       <p className="mt-2 text-[15px] leading-snug text-slate-600">
-        Share your details if you&apos;d like quiet updates as Attrition AI opens to early partners — no spam, unsubscribe anytime.
+        Share your details if you&apos;d like quiet updates as RetainIQ opens to early partners — no spam, unsubscribe anytime.
       </p>
       <div className="mt-5 flex flex-col gap-3">
         <div className="grid gap-3 sm:grid-cols-2">

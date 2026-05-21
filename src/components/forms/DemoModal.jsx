@@ -2,28 +2,52 @@ import { useEffect, useState } from 'react';
 import Modal from '../ui/Modal.jsx';
 import { insertWebsiteFormSubmission, leadMetadata, validateEmail } from '../../lib/websiteForms.js';
 
+const COUNTRY_CODES = [
+  { value: '+1', label: '+1 US' },
+  { value: '+91', label: '+91 IN' },
+  { value: '+44', label: '+44 UK' },
+  { value: '+61', label: '+61 AU' },
+  { value: '+49', label: '+49 DE' },
+  { value: '+33', label: '+33 FR' },
+  { value: '+81', label: '+81 JP' },
+  { value: '+86', label: '+86 CN' },
+  { value: '+971', label: '+971 AE' },
+  { value: '+65', label: '+65 SG' },
+];
+
 const inputCls = (err) =>
   `w-full rounded-xl border bg-white px-4 py-3 text-[15px] text-slate-800 placeholder:text-slate-400 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 ${
     err ? 'border-red-400 ring-2 ring-red-500/15' : 'border-slate-200'
   }`;
 
+const selectCls = (err) =>
+  `${inputCls(err)} w-[100px] shrink-0 appearance-none bg-[length:12px] bg-[right_12px_center] bg-no-repeat pr-8`;
+
+const EMPTY_FORM = {
+  first: '',
+  last: '',
+  email: '',
+  countryCode: '+1',
+  phoneNumber: '',
+  company: '',
+  role: '',
+};
+
+function formatPhone(countryCode, phoneNumber) {
+  const digits = String(phoneNumber).replace(/\D/g, '');
+  return `${countryCode}${digits}`;
+}
+
 export default function DemoModal({ open, onClose }) {
   const [step, setStep] = useState('form');
-  const [form, setForm] = useState({
-    first: '',
-    last: '',
-    email: '',
-    phone: '',
-    company: '',
-    role: '',
-  });
+  const [form, setForm] = useState(EMPTY_FORM);
   const [errs, setErrs] = useState({});
   const [submitErr, setSubmitErr] = useState('');
 
   useEffect(() => {
     if (!open) return;
     setStep('form');
-    setForm({ first: '', last: '', email: '', phone: '', company: '', role: '' });
+    setForm(EMPTY_FORM);
     setErrs({});
     setSubmitErr('');
   }, [open]);
@@ -32,7 +56,7 @@ export default function DemoModal({ open, onClose }) {
     const e = {};
     if (!form.first.trim()) e.first = true;
     if (!validateEmail(form.email)) e.email = true;
-    const digits = String(form.phone).replace(/\D/g, '');
+    const digits = String(form.phoneNumber).replace(/\D/g, '');
     if (digits.length < 10) e.phone = true;
     if (!form.company.trim()) e.company = true;
     if (!form.role.trim()) e.role = true;
@@ -46,13 +70,14 @@ export default function DemoModal({ open, onClose }) {
       return;
     }
     setSubmitErr('');
+    const phone = formatPhone(form.countryCode, form.phoneNumber);
     try {
       const { ok, status, error } = await insertWebsiteFormSubmission({
         form_type: 'demo_request',
         first_name: form.first.trim(),
         last_name: form.last.trim() || null,
         email: form.email.trim(),
-        phone: form.phone.trim(),
+        phone,
         company: form.company.trim(),
         role: form.role.trim(),
         source: 'homepage_book_demo',
@@ -124,15 +149,32 @@ export default function DemoModal({ open, onClose }) {
                 onChange={(ev) => setForm({ ...form, email: ev.target.value })}
                 autoComplete="email"
               />
-              <input
-                className={inputCls(errs.phone)}
-                placeholder="Phone or WhatsApp * (incl. country code)"
-                type="tel"
-                inputMode="tel"
-                value={form.phone}
-                onChange={(ev) => setForm({ ...form, phone: ev.target.value })}
-                autoComplete="tel"
-              />
+              <div className="flex gap-3">
+                <select
+                  className={selectCls(errs.phone)}
+                  value={form.countryCode}
+                  onChange={(ev) => setForm({ ...form, countryCode: ev.target.value })}
+                  aria-label="Country code"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`,
+                  }}
+                >
+                  {COUNTRY_CODES.map((c) => (
+                    <option key={c.value} value={c.value}>
+                      {c.label}
+                    </option>
+                  ))}
+                </select>
+                <input
+                  className={`${inputCls(errs.phone)} min-w-0 flex-1`}
+                  placeholder="Mobile number *"
+                  type="tel"
+                  inputMode="tel"
+                  value={form.phoneNumber}
+                  onChange={(ev) => setForm({ ...form, phoneNumber: ev.target.value })}
+                  autoComplete="tel-national"
+                />
+              </div>
               <input
                 className={inputCls(errs.company)}
                 placeholder="Company name *"
