@@ -2,26 +2,16 @@ import { useEffect, useState } from 'react';
 import Modal from '../ui/Modal.jsx';
 import { insertWebsiteFormSubmission, leadMetadata, validateEmail } from '../../lib/websiteForms.js';
 
-const COUNTRY_CODES = [
-  { value: '+1', label: '+1 US' },
-  { value: '+91', label: '+91 IN' },
-  { value: '+44', label: '+44 UK' },
-  { value: '+61', label: '+61 AU' },
-  { value: '+49', label: '+49 DE' },
-  { value: '+33', label: '+33 FR' },
-  { value: '+81', label: '+81 JP' },
-  { value: '+86', label: '+86 CN' },
-  { value: '+971', label: '+971 AE' },
-  { value: '+65', label: '+65 SG' },
-];
-
-const inputCls = (err) =>
-  `w-full rounded-xl border bg-white px-4 py-3 text-[15px] text-slate-800 placeholder:text-slate-400 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 ${
+const fieldBase = (err) =>
+  `rounded-xl border bg-white text-[15px] text-slate-800 outline-none transition focus:border-violet-500 focus:ring-2 focus:ring-violet-500/20 ${
     err ? 'border-red-400 ring-2 ring-red-500/15' : 'border-slate-200'
   }`;
 
-const selectCls = (err) =>
-  `${inputCls(err)} w-[100px] shrink-0 appearance-none bg-[length:12px] bg-[right_12px_center] bg-no-repeat pr-8`;
+const inputCls = (err) =>
+  `${fieldBase(err)} w-full px-4 py-3 placeholder:text-slate-400`;
+
+const countryCodeCls = (err) =>
+  `${fieldBase(err)} min-w-0 px-3 py-3 placeholder:text-slate-400`;
 
 const EMPTY_FORM = {
   first: '',
@@ -33,9 +23,24 @@ const EMPTY_FORM = {
   role: '',
 };
 
+function normalizeCountryCode(code) {
+  const trimmed = String(code).trim();
+  if (!trimmed) return '';
+  if (trimmed.startsWith('+')) return `+${trimmed.slice(1).replace(/\D/g, '')}`;
+  return `+${trimmed.replace(/\D/g, '')}`;
+}
+
 function formatPhone(countryCode, phoneNumber) {
+  const code = normalizeCountryCode(countryCode);
   const digits = String(phoneNumber).replace(/\D/g, '');
-  return `${countryCode}${digits}`;
+  return `${code}${digits}`;
+}
+
+function onCountryCodeChange(value) {
+  if (!value) return '';
+  if (value === '+') return '+';
+  if (value.startsWith('+')) return `+${value.slice(1).replace(/\D/g, '')}`;
+  return `+${value.replace(/\D/g, '')}`;
 }
 
 export default function DemoModal({ open, onClose }) {
@@ -56,6 +61,8 @@ export default function DemoModal({ open, onClose }) {
     const e = {};
     if (!form.first.trim()) e.first = true;
     if (!validateEmail(form.email)) e.email = true;
+    const codeDigits = normalizeCountryCode(form.countryCode).replace(/\D/g, '');
+    if (codeDigits.length < 1) e.phone = true;
     const digits = String(form.phoneNumber).replace(/\D/g, '');
     if (digits.length < 10) e.phone = true;
     if (!form.company.trim()) e.company = true;
@@ -121,9 +128,6 @@ export default function DemoModal({ open, onClose }) {
             <h3 id={titleId} className="text-xl font-bold tracking-tight text-slate-900">
               Book your demo
             </h3>
-            <p className="mt-2 text-[15px] leading-relaxed text-slate-600">
-              30-minute walkthrough with a custom ROI analysis for your company size and sector.
-            </p>
             <div className="mt-6 flex flex-col gap-3">
               <div className="grid gap-3 sm:grid-cols-2">
                 <input
@@ -149,24 +153,24 @@ export default function DemoModal({ open, onClose }) {
                 onChange={(ev) => setForm({ ...form, email: ev.target.value })}
                 autoComplete="email"
               />
-              <div className="flex gap-3">
-                <select
-                  className={selectCls(errs.phone)}
-                  value={form.countryCode}
-                  onChange={(ev) => setForm({ ...form, countryCode: ev.target.value })}
-                  aria-label="Country code"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3E%3Cpath stroke='%2364748b' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3E%3C/svg%3E")`,
-                  }}
-                >
-                  {COUNTRY_CODES.map((c) => (
-                    <option key={c.value} value={c.value}>
-                      {c.label}
-                    </option>
-                  ))}
-                </select>
+              <div className="grid w-full grid-cols-[minmax(5.5rem,8.5rem)_minmax(0,1fr)] gap-3">
                 <input
-                  className={`${inputCls(errs.phone)} min-w-0 flex-1`}
+                  className={countryCodeCls(errs.phone)}
+                  placeholder="+91"
+                  type="text"
+                  inputMode="tel"
+                  value={form.countryCode}
+                  onChange={(ev) =>
+                    setForm({ ...form, countryCode: onCountryCodeChange(ev.target.value) })
+                  }
+                  onBlur={(ev) =>
+                    setForm({ ...form, countryCode: normalizeCountryCode(ev.target.value) })
+                  }
+                  aria-label="Country code"
+                  autoComplete="tel-country-code"
+                />
+                <input
+                  className={inputCls(errs.phone)}
                   placeholder="Mobile number *"
                   type="tel"
                   inputMode="tel"
